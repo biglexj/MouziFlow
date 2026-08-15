@@ -1,0 +1,38 @@
+[package]
+name = "mouzi"
+version = "0.1.6"
+description = "Mouzi - Intelligent file organizer for Windows"
+authors = ["mouzi"]
+edition = "2021"
+
+[lib]
+name = "mouzi_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon", "image-png"] }
+tauri-plugin-opener = "2"
+tauri-plugin-notification = "2"
+tauri-plugin-dialog = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+chrono = { version = "0.4", features = ["serde"] }
+notify = "7"
+rusqlite = { version = "0.32", features = ["bundled", "chrono", "serde_json"] }
+directories = "5"
+once_cell = "1"
+thiserror = "1"
+regex = "1"
+log = "0.4"
+sys-locale = "0.3"
+tauri-plugin-autostart = "2.5.1"
+tauri-plugin-single-instance = "2"
+flate2 = "1"
+tar = { version = "=0.4.44", default-features = false }
+zip = { version = "=0.6.6", default-features = false, features = ["deflate"] }
+
+[target.'cfg(target_os = "windows")'.dependencies]
+tauri-winrt-notification = "0.7.2"

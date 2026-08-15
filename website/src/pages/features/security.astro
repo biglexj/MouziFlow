@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import { site, signingMessage } from '../../config/site';
+import { breadcrumbLd } from '../../lib/seo';
+---
+
+<BaseLayout
+  title="Security — Mouzi features"
+  description="How Mouzi releases are built and checked: public GitHub Actions workflows, local file inspection and code signing being prepared through SignPath Foundation."
+  canonical="/features/security"
+  jsonLd={[breadcrumbLd([{ name: 'Features', url: '/features' }, { name: 'Security', url: '/features/security' }])]}
+>
+  <div class="mx-auto max-w-4xl px-5 py-16">
+    <SectionHeading
+      kicker="Features"
+      title="Releases you can verify."
+      lead="Trust in a desktop app should not rest on the developer's word. Mouzi publishes its source, release workflows and tagged release files for inspection."
+    />
+
+    <div class="mt-12 grid gap-5 sm:grid-cols-2">
+      {
+        [
+          {
+            title: 'Built in public CI',
+            body: 'Public releases are compiled by GitHub Actions from tagged commits. The workflow files are part of the repository, so the build steps are open for inspection.',
+          },
+          {
+            title: 'SignPath Foundation',
+            body: signingMessage() + ' Once the production certificate is active, CI will submit release files under a restricted policy and verify their Authenticode signatures before publication.',
+          },
+          {
+            title: 'Direct GitHub artifacts',
+            body: 'The download buttons on mouzi.cc point to the files published on the official GitHub release rather than to a separate mirror.',
+          },
+          {
+            title: 'Local verification',
+            body: 'You can inspect an Authenticode signature when one is present and calculate a SHA-256 hash locally. A hash needs a trusted comparison value to verify a download.',
+          },
+        ].map((c) => (
+          <div class="rounded-card border border-line bg-surface p-5">
+            <h2 class="text-[15px] font-semibold">{c.title}</h2>
+            <p class="mt-2 text-sm leading-relaxed text-muted">{c.body}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <section class="prose mt-12">
+      <h2>Why a file organizer cares this much</h2>
+      <p>
+        Mouzi asks to watch your Downloads folder, where browsers place files before you open them. That makes the
+        release path worth inspecting. Public workflows show how release artifacts are built, and mouzi.cc links
+        directly to the files published on GitHub instead of maintaining a separate binary mirror.
+      </p>
+
+      <h2>Reporting vulnerabilities</h2>
+      <p>
+        Please report security issues privately through{' '}
+        <a href={`${site.github.url}/security/advisories/new`} rel="noopener">GitHub security advisories</a> rather
+        than public issues. Scope and response expectations are described in the{' '}
+        <a href="/docs/security">security documentation</a>.
+      </p>
+    </section>
+
+    <div class="mt-12 flex flex-wrap gap-3">
+      <a href="/docs/security" class="rounded-btn bg-amber px-5 py-2.5 text-sm font-semibold text-[#151004] hover:opacity-90">Read the security policy</a>
+      <a href={`${site.github.url}/security/advisories/new`} rel="noopener" class="rounded-btn border border-line px-5 py-2.5 text-sm text-cream hover:bg-surface-2">Report a vulnerability</a>
+      <a href={`${site.github.url}/actions`} rel="noopener" class="rounded-btn border border-line px-5 py-2.5 text-sm text-cream hover:bg-surface-2">View release checks</a>
+    </div>
+  </div>
+</BaseLayout>
