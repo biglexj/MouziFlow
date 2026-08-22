@@ -21,12 +21,17 @@ Mouzi is a silent, elegant file organizer that lives in your system tray and kee
 ---
 
 ## 📸 Screenshots
-<img width="640" height="360" alt="mouzigiflinux_maly" src="https://github.com/user-attachments/assets/32dc0286-fdb0-411e-8237-f589c2f17082" />
+| Dashboard | Carpetas monitorizadas |
+| :---: | :---: |
+| <img src="screenshots/dashboard.png" width="500" alt="Dashboard" /> | <img src="screenshots/monitored_folders.png" width="500" alt="Carpetas monitorizadas" /> |
 
-<img width="500" height="361" alt="resized-1_1781356999" src="https://github.com/user-attachments/assets/22555e17-b58a-4a70-9da2-47d8f778b9ea" />
-<img width="500" height="361" alt="resized-2_1781357019" src="https://github.com/user-attachments/assets/75ddb288-ff70-4b78-927a-b31e31cbcecd" />
-<img width="500" height="314" alt="resized-mouzilinux" src="https://github.com/user-attachments/assets/2ed8b18f-4833-40f2-ab19-9d0a63014f88" />
-<img width="500" height="315" alt="resized-mozuilinux2" src="https://github.com/user-attachments/assets/fb6bca80-0b5e-4622-8efc-3ceca186a829" />
+| Reglas de organización | Partners y aportes |
+| :---: | :---: |
+| <img src="screenshots/organization_rules.png" width="500" alt="Reglas de organización" /> | <img src="screenshots/partners_support.png" width="500" alt="Partners y aportes" /> |
+
+| Acerca de |
+| :---: |
+| <img src="screenshots/about.png" width="500" alt="Acerca de Mouzi" /> |
 
 
 
