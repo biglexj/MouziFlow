@@ -47,10 +47,10 @@ Mouzi aims to remain lightweight, local-first, and easy to understand. Features 
 ### Running Mouzi locally
 
 ```bash
-git clone https://github.com/hsr88/mouzi.git
-cd mouzi
-npm install
-npm run tauri dev
+git clone https://github.com/biglexj/MouziFlow.git
+cd MouziFlow
+bun install
+bun run tauri dev
 ```
 
 ### Creating a production build
@@ -118,8 +118,18 @@ If you are comfortable translating but not editing TypeScript or Rust, submit th
 * Do not translate text that is not present in the English locale without explaining why in the pull request.
 * Test narrow windows and longer labels where possible; a correct translation should not make buttons or settings unusable.
 
+## Distribución y Publicación en Aurora (biglexj.com)
+
+MouziFlow forma parte del catálogo oficial de aplicaciones en [biglexj.com](https://www.biglexj.com/desarrollo).
+
+Si deseas que tu proyecto o versión aparezca visible en la plataforma Aurora (`biglexj.com`):
+1. **Regístrate:** Crea tu cuenta de usuario en [biglexj.com](https://www.biglexj.com/).
+2. **Publica tu Aplicación:** Regístrala desde el panel de desarrollador indicando título, `slug`, descripción y enlaces a tus releases oficiales de GitHub.
+3. **Automatización:** Próximamente estará disponible un kit de desarrollo (CLI/SDK) para publicar y sincronizar versiones de forma automatizada mediante scripts de terminal.
+
 ## License
 
 By submitting a contribution, you agree that it may be distributed under the project's [MIT License](LICENSE).
 
 Thank you for helping make Mouzi better.
+

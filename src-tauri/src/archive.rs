@@ -33,9 +33,10 @@ pub fn extract_archive(path: &Path) -> Result<ArchiveExtraction, String> {
 }
 
 fn create_staging_dir() -> Result<PathBuf, String> {
-    let base_dir = directories::ProjectDirs::from("cc", "mouzi", "mouzi")
+    let app_folder = if cfg!(debug_assertions) { "mouzi-dev" } else { "mouzi" };
+    let base_dir = directories::ProjectDirs::from("cc", "mouzi", app_folder)
         .map(|dirs| dirs.cache_dir().join("archive-imports"))
-        .unwrap_or_else(|| std::env::temp_dir().join("mouzi").join("archive-imports"));
+        .unwrap_or_else(|| std::env::temp_dir().join(app_folder).join("archive-imports"));
 
     fs::create_dir_all(&base_dir).map_err(|e| {
         format!(

@@ -5,7 +5,7 @@ use crate::AppState;
 use serde::Serialize;
 use std::path::Path;
 use std::time::Instant;
-use tauri::{AppHandle, Manager};
+use tauri::{AppHandle, Emitter, Manager};
 use tauri_plugin_autostart::ManagerExt;
 use tauri_plugin_notification::NotificationExt;
 
@@ -297,20 +297,60 @@ pub fn initialize_defaults_cmd() -> Result<(), String> {
 #[tauri::command]
 pub fn close_popup(app: AppHandle) {
     if let Some(window) = app.get_webview_window("popup") {
+        if let Ok(pos) = window.outer_position() {
+            let _ = crate::db::save_window_position(pos.x, pos.y);
+        }
         let _ = window.hide();
     }
 }
 
 #[tauri::command]
 pub fn close_settings(app: AppHandle) {
-    if let Some(window) = app.get_webview_window("settings") {
-        let _ = window.close();
+    if let Some(window) = app.get_webview_window("popup") {
+        let _ = window.set_size(tauri::LogicalSize::new(420.0, 620.0));
+        if let Ok(Some((x, y))) = crate::db::get_window_position() {
+            let _ = window.set_position(tauri::PhysicalPosition::new(x, y));
+        }
+        let _ = app.emit("navigate-to-popup", ());
+    }
+}
+
+#[tauri::command]
+pub fn set_view_mode_cmd(app: AppHandle, mode: String) {
+    if let Some(window) = app.get_webview_window("popup") {
+        if mode == "settings" {
+            let _ = window.set_size(tauri::LogicalSize::new(820.0, 600.0));
+            let _ = window.center();
+        } else {
+            let _ = window.set_size(tauri::LogicalSize::new(420.0, 620.0));
+            if let Ok(Some((x, y))) = crate::db::get_window_position() {
+                let _ = window.set_position(tauri::PhysicalPosition::new(x, y));
+            }
+        }
     }
 }
 
 #[tauri::command]
 pub fn show_notification(app: AppHandle, title: String, body: String) {
     let _ = app.notification().builder().title(title).body(body).show();
+}
+
+#[tauri::command]
+pub fn start_dragging_cmd(window: tauri::WebviewWindow) -> Result<(), String> {
+    window.start_dragging().map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+pub fn get_window_position_cmd(window: tauri::WebviewWindow) -> Result<(i32, i32), String> {
+    let pos = window.outer_position().map_err(|e| e.to_string())?;
+    Ok((pos.x, pos.y))
+}
+
+#[tauri::command]
+pub fn set_window_position_cmd(window: tauri::WebviewWindow, x: i32, y: i32) -> Result<(), String> {
+    window
+        .set_position(tauri::PhysicalPosition::new(x, y))
+        .map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -348,6 +388,11 @@ pub fn get_pending_open_folder_cmd(state: tauri::State<AppState>) -> Option<Stri
 #[tauri::command]
 pub fn show_popup_cmd(app: AppHandle) {
     crate::tray::show_popup_window(&app);
+}
+
+#[tauri::command]
+pub fn show_settings_cmd(app: AppHandle) {
+    crate::tray::show_settings_window(&app);
 }
 
 /// Return files detected in manual-mode folders that are waiting for Clean Now.
@@ -425,3 +470,61 @@ pub fn import_rules_cmd(path: String, replace: bool) -> Result<usize, String> {
     }
     Ok(count)
 }
+
+#[derive(Debug, Clone, Serialize)]
+pub struct PresetFolder {
+    pub name: String,
+    pub path: String,
+    pub icon_type: String,
+}
+
+#[tauri::command]
+pub fn get_preset_folders_cmd() -> Vec<PresetFolder> {
+    let mut presets = Vec::new();
+    if let Some(dirs) = directories::UserDirs::new() {
+        if let Some(p) = dirs.download_dir() {
+            presets.push(PresetFolder {
+                name: "Downloads".to_string(),
+                path: p.to_string_lossy().to_string(),
+                icon_type: "downloads".to_string(),
+            });
+        }
+        if let Some(p) = dirs.desktop_dir() {
+            presets.push(PresetFolder {
+                name: "Desktop".to_string(),
+                path: p.to_string_lossy().to_string(),
+                icon_type: "desktop".to_string(),
+            });
+        }
+        if let Some(p) = dirs.document_dir() {
+            presets.push(PresetFolder {
+                name: "Documents".to_string(),
+                path: p.to_string_lossy().to_string(),
+                icon_type: "documents".to_string(),
+            });
+        }
+        if let Some(p) = dirs.picture_dir() {
+            presets.push(PresetFolder {
+                name: "Pictures".to_string(),
+                path: p.to_string_lossy().to_string(),
+                icon_type: "pictures".to_string(),
+            });
+        }
+        if let Some(p) = dirs.video_dir() {
+            presets.push(PresetFolder {
+                name: "Videos".to_string(),
+                path: p.to_string_lossy().to_string(),
+                icon_type: "videos".to_string(),
+            });
+        }
+        if let Some(p) = dirs.audio_dir() {
+            presets.push(PresetFolder {
+                name: "Music".to_string(),
+                path: p.to_string_lossy().to_string(),
+                icon_type: "music".to_string(),
+            });
+        }
+    }
+    presets
+}
+

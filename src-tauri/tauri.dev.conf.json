@@ -1,0 +1,13 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Mouzi Dev",
+  "identifier": "cc.mouzi.dev",
+  "app": {
+    "windows": [
+      {
+        "label": "popup",
+        "title": "Mouzi (Dev)"
+      }
+    ]
+  }
+}

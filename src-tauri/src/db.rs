@@ -146,7 +146,7 @@ pub fn init_db(app_dir: PathBuf) -> SqliteResult<()> {
     conn.execute(
         "CREATE TABLE IF NOT EXISTS settings (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            language TEXT NOT NULL DEFAULT 'en',
+            language TEXT NOT NULL DEFAULT 'es',
             theme TEXT NOT NULL DEFAULT 'system',
             telemetry_enabled INTEGER NOT NULL DEFAULT 0,
             first_run INTEGER NOT NULL DEFAULT 1,
@@ -163,7 +163,7 @@ pub fn init_db(app_dir: PathBuf) -> SqliteResult<()> {
         conn.execute("ALTER TABLE settings ADD COLUMN autostart INTEGER NOT NULL DEFAULT 1", [])?;
     }
     if !cols.iter().any(|c| c == "grace_period_seconds") {
-        conn.execute("ALTER TABLE settings ADD COLUMN grace_period_seconds INTEGER NOT NULL DEFAULT 300", [])?;
+        conn.execute("ALTER TABLE settings ADD COLUMN grace_period_seconds INTEGER NOT NULL DEFAULT 3", [])?;
     }
     if !cols.iter().any(|c| c == "lock_check_enabled") {
         conn.execute("ALTER TABLE settings ADD COLUMN lock_check_enabled INTEGER NOT NULL DEFAULT 1", [])?;
@@ -186,6 +186,12 @@ pub fn init_db(app_dir: PathBuf) -> SqliteResult<()> {
     if !cols.iter().any(|c| c == "schedule_time_4") {
         conn.execute("ALTER TABLE settings ADD COLUMN schedule_time_4 TEXT", [])?;
     }
+    if !cols.iter().any(|c| c == "window_x") {
+        conn.execute("ALTER TABLE settings ADD COLUMN window_x INTEGER", [])?;
+    }
+    if !cols.iter().any(|c| c == "window_y") {
+        conn.execute("ALTER TABLE settings ADD COLUMN window_y INTEGER", [])?;
+    }
     // Insert default settings if empty
     let count: i64 = conn.query_row(
         "SELECT COUNT(*) FROM settings",
@@ -195,7 +201,18 @@ pub fn init_db(app_dir: PathBuf) -> SqliteResult<()> {
 
     if count == 0 {
         conn.execute(
-            "INSERT INTO settings (language, theme, telemetry_enabled, first_run, autostart) VALUES ('en', 'system', 0, 1, 1)",
+            "INSERT INTO settings (language, theme, telemetry_enabled, first_run, autostart, grace_period_seconds, lock_check_enabled) VALUES ('es', 'system', 0, 1, 1, 3, 1)",
+            [],
+        )?;
+    } else {
+        // Migration: update existing installations that still have the upstream 'en' default to 'es'
+        conn.execute(
+            "UPDATE settings SET language = 'es' WHERE language = 'en'",
+            [],
+        )?;
+        // Migration: update upstream default 300s grace period to 3s for instant responsive sorting
+        conn.execute(
+            "UPDATE settings SET grace_period_seconds = 3 WHERE grace_period_seconds = 300",
             [],
         )?;
     }
@@ -206,29 +223,71 @@ pub fn init_db(app_dir: PathBuf) -> SqliteResult<()> {
     Ok(())
 }
 
+pub fn save_window_position(x: i32, y: i32) -> SqliteResult<()> {
+    let db = get_db();
+    let conn = db.lock().unwrap();
+    conn.execute(
+        "UPDATE settings SET window_x = ?1, window_y = ?2 WHERE id = (SELECT id FROM settings LIMIT 1)",
+        params![x, y],
+    )?;
+    Ok(())
+}
+
+pub fn get_window_position() -> SqliteResult<Option<(i32, i32)>> {
+    let db = get_db();
+    let conn = db.lock().unwrap();
+    let res = conn.query_row(
+        "SELECT window_x, window_y FROM settings WHERE id = (SELECT id FROM settings LIMIT 1)",
+        [],
+        |row| {
+            let x: Option<i32> = row.get(0)?;
+            let y: Option<i32> = row.get(1)?;
+            Ok(match (x, y) {
+                (Some(x), Some(y)) => Some((x, y)),
+                _ => None,
+            })
+        },
+    );
+    match res {
+        Ok(pos) => Ok(pos),
+        Err(_) => Ok(None),
+    }
+}
+
 pub fn get_db() -> Arc<Mutex<Connection>> {
     DB.get().expect("Database not initialized").clone()
 }
 
 pub fn migrate_rules_to_relative() -> SqliteResult<()> {
-    let folders = get_watched_folders()?;
+    let mut check_folders = get_watched_folders()
+        .unwrap_or_default()
+        .into_iter()
+        .map(|f| f.path)
+        .collect::<Vec<_>>();
+    let dl = crate::commands::get_downloads_folder();
+    if !check_folders.contains(&dl) {
+        check_folders.push(dl);
+    }
     let db = get_db();
     let conn = db.lock().unwrap();
-    for folder in folders {
-        let folder_norm = folder.path.trim_end_matches('/').trim_end_matches('\\');
+    for folder_path in check_folders {
+        let folder_norm = folder_path.replace('\\', "/").trim_end_matches('/').to_lowercase();
         if folder_norm.is_empty() { continue; }
-        let mut stmt = conn.prepare("SELECT id, destination FROM rules WHERE destination LIKE ?1")?;
-        let rows: Vec<(i64, String)> = stmt
-            .query_map([format!("{}%", folder_norm)], |row| Ok((row.get(0)?, row.get(1)?)))?
+
+        let mut stmt = conn.prepare("SELECT id, destination, folder_id FROM rules")?;
+        let rows: Vec<(i64, String, i64)> = stmt
+            .query_map([], |row| Ok((row.get(0)?, row.get(1)?, row.get(2)?)))?
             .collect::<SqliteResult<Vec<_>>>()?;
-        for (id, dest) in rows {
-            let relative = if dest.starts_with(&folder_norm) {
-                dest[folder_norm.len()..].trim_start_matches('/').trim_start_matches('\\').to_string()
-            } else {
-                dest.clone()
-            };
-            if !relative.is_empty() && relative != dest {
-                conn.execute("UPDATE rules SET destination = ?1 WHERE id = ?2", params![relative, id])?;
+
+        for (id, dest, folder_id) in rows {
+            if folder_id == 0 {
+                let dest_norm = dest.replace('\\', "/");
+                if dest_norm.to_lowercase().starts_with(&folder_norm) {
+                    let relative = dest_norm[folder_norm.len()..].trim_start_matches('/').to_string();
+                    if !relative.is_empty() && relative != dest {
+                        conn.execute("UPDATE rules SET destination = ?1 WHERE id = ?2", params![relative, id])?;
+                    }
+                }
             }
         }
     }

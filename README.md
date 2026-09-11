@@ -23,15 +23,20 @@ Mouzi is a silent, elegant file organizer that lives in your system tray and kee
 ## 📸 Screenshots
 | Dashboard | Carpetas monitorizadas |
 | :---: | :---: |
-| <img src="screenshots/dashboard.png" width="500" alt="Dashboard" /> | <img src="screenshots/monitored_folders.png" width="500" alt="Carpetas monitorizadas" /> |
+| <img src="docs/screenshots/dashboard.png" width="500" alt="Dashboard" /> | <img src="docs/screenshots/monitored_folders.png" width="500" alt="Carpetas monitorizadas" /> |
 
 | Reglas de organización | Partners y aportes |
 | :---: | :---: |
-| <img src="screenshots/organization_rules.png" width="500" alt="Reglas de organización" /> | <img src="screenshots/partners_support.png" width="500" alt="Partners y aportes" /> |
+| <img src="docs/screenshots/organization_rules.png" width="500" alt="Reglas de organización" /> | <img src="docs/screenshots/partners_support.png" width="500" alt="Partners y aportes" /> |
 
 | Acerca de |
 | :---: |
-| <img src="screenshots/about.png" width="500" alt="Acerca de Mouzi" /> |
+| <img src="docs/screenshots/about.png" width="500" alt="Acerca de Mouzi" /> |
+
+## Organización de recursos
+
+El icono canónico de identidad se conserva en [`assets/branding/icons/icon-transparent.png`](assets/branding/icons/icon-transparent.png). Los recursos derivados deben generarse desde esa fuente conforme al [Asset Organization Standard](../Docs/global/architecture/asset-organization-standard.md); las capturas documentales viven en `docs/screenshots/`.
+
 
 
 

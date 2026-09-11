@@ -149,9 +149,40 @@ fn resolve_destination(destination: &str, file: &FileInfo) -> PathBuf {
     PathBuf::from(resolved)
 }
 
+fn normalize_path_str(p: &str) -> String {
+    p.replace('\\', "/").trim_end_matches('/').to_lowercase()
+}
+
 pub fn find_matching_rule(file: &FileInfo) -> Option<Rule> {
     let rules = get_rules().ok()?;
-    rules.into_iter().find(|rule| matches_rule(file, rule))
+    let folders = crate::db::get_watched_folders().ok().unwrap_or_default();
+
+    // Check if the file's parent folder matches a watched folder
+    let base_parent = file.path.parent().map(|p| p.to_string_lossy().to_string()).unwrap_or_default();
+    let norm_parent = normalize_path_str(&base_parent);
+
+    let current_folder_id = folders
+        .iter()
+        .find(|f| normalize_path_str(&f.path) == norm_parent)
+        .and_then(|f| f.id)
+        .unwrap_or(0);
+
+    // 1. First search for folder-specific rules (folder_id == current_folder_id > 0)
+    if current_folder_id > 0 {
+        if let Some(rule) = rules
+            .iter()
+            .filter(|r| r.folder_id == current_folder_id)
+            .find(|r| matches_rule(file, r))
+        {
+            return Some(rule.clone());
+        }
+    }
+
+    // 2. Fallback to global rules (folder_id == 0)
+    rules
+        .into_iter()
+        .filter(|r| r.folder_id == 0)
+        .find(|r| matches_rule(file, r))
 }
 
 fn move_file_cross_device(src: &Path, dst: &Path) -> Result<(), std::io::Error> {
@@ -174,11 +205,22 @@ pub fn execute_rule(file_info: &FileInfo, rule: &Rule) -> Result<String, String>
         .map(|p| p.to_string_lossy().to_string())
         .unwrap_or_else(|| ".".to_string());
 
-    let dest = if Path::new(&rule.destination).is_absolute() {
-        // Backwards compatibility: old rules with absolute paths
+    let dest = if Path::new(&rule.destination).is_absolute() && rule.folder_id > 0 {
+        // Specific rule with an absolute destination explicitly chosen by user
         resolve_destination(&rule.destination, file_info)
+    } else if Path::new(&rule.destination).is_absolute() && rule.folder_id == 0 {
+        // Global rule with an old absolute path (e.g. from Downloads upstream defaults):
+        // convert to relative inside base_folder so files stay organized within their own folder
+        let dest_str = rule.destination.replace('\\', "/");
+        let dl = crate::commands::get_downloads_folder().replace('\\', "/");
+        if dest_str.to_lowercase().starts_with(&dl.to_lowercase()) {
+            let rel = dest_str[dl.len()..].trim_start_matches('/').to_string();
+            PathBuf::from(&base_folder).join(resolve_destination(&rel, file_info))
+        } else {
+            resolve_destination(&rule.destination, file_info)
+        }
     } else {
-        // New behavior: relative to the source folder
+        // Relative to the source folder
         PathBuf::from(&base_folder).join(resolve_destination(&rule.destination, file_info))
     };
 

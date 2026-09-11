@@ -26,15 +26,17 @@ const resources = {
 
 export type SupportedLang = 'en' | 'pl' | 'it' | 'de' | 'fr' | 'ru' | 'ja' | 'vi' | 'es' | 'uk';
 
+i18n.use(initReactI18next).init({
+  resources,
+  lng: 'es',
+  fallbackLng: 'es',
+  interpolation: {
+    escapeValue: false,
+  },
+});
+
 export async function initI18n(lang: SupportedLang) {
-  await i18n.use(initReactI18next).init({
-    resources,
-    lng: lang,
-    fallbackLng: 'en',
-    interpolation: {
-      escapeValue: false,
-    },
-  });
+  await i18n.changeLanguage(lang);
 }
 
 export default i18n;

@@ -26,10 +26,8 @@ function applyTheme(theme: string) {
 
 function App() {
   const { t } = useTranslation();
-  const [ready, setReady] = useState(false);
-  const { loadSettings, settings } = useAppStore();
-
-  const hash = window.location.hash.replace("#/", "") || "popup";
+  const [ready, setReady] = useState(true);
+  const { loadSettings, settings, currentView, setCurrentView } = useAppStore();
 
   useEffect(() => {
     async function boot() {
@@ -40,7 +38,7 @@ function App() {
 
   useEffect(() => {
     if (!settings) return;
-    const lang = (settings.language || "en") as SupportedLang;
+    const lang = (settings.language === "en" || !settings.language ? "es" : settings.language) as SupportedLang;
     initI18n(lang).then(() => setReady(true));
   }, [settings]);
 
@@ -50,10 +48,18 @@ function App() {
   }, [settings?.theme]);
 
   useEffect(() => {
-    const unlisten = listen("file-organized", (event) => {
+    const unlistenOrganized = listen("file-organized", (event) => {
       console.log("File organized:", event.payload);
       useAppStore.getState().loadLogs();
       useAppStore.getState().loadStats();
+    });
+
+    const unlistenToSettings = listen("navigate-to-settings", () => {
+      setCurrentView("settings");
+    });
+
+    const unlistenToPopup = listen("navigate-to-popup", () => {
+      setCurrentView("popup");
     });
 
     let actionListener: { unregister: () => Promise<void> } | null = null;
@@ -70,14 +76,10 @@ function App() {
       actionListener = listener;
     }).catch(console.error);
 
-    // When the popup window gains focus (e.g. after notification click brings app forward),
-    // check if there's a pending folder to open. This covers the case where the app window
-    // was already visible and single-instance handler didn't fire.
     const handleFocus = async () => {
       try {
         const folder = await invoke<string | null>("get_pending_open_folder_cmd");
         if (folder) {
-          // Open the folder in Explorer
           await invoke("open_folder_cmd", { path: folder }).catch(console.error);
         }
       } catch (e) {
@@ -88,13 +90,15 @@ function App() {
     window.addEventListener("focus", handleFocus);
 
     return () => {
-      unlisten.then((f) => f());
+      unlistenOrganized.then((f) => f());
+      unlistenToSettings.then((f) => f());
+      unlistenToPopup.then((f) => f());
       window.removeEventListener("focus", handleFocus);
       if (actionListener) {
         actionListener.unregister().catch(console.error);
       }
     };
-  }, []);
+  }, [setCurrentView]);
 
   if (!ready) {
     return (
@@ -105,8 +109,8 @@ function App() {
   }
 
   return (
-    <div className="h-full w-full">
-      {hash === "settings" ? <Settings /> : <Popup />}
+    <div className="h-full w-full bg-surface text-text rounded-xl border border-border shadow-xl overflow-hidden flex flex-col select-none">
+      {currentView === "settings" ? <Settings /> : <Popup />}
     </div>
   );
 }

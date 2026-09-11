@@ -11,23 +11,23 @@
 }
 
 :root {
-  --color-primary-val: #f59e0b;
-  --color-primary-hover-val: #fb7185;
+  --color-primary-val: #0d9488;
+  --color-primary-hover-val: #0f766e;
   --color-surface-val: #ffffff;
-  --color-surface-dark-val: #f5f2ed;
-  --color-border-val: #e7e2da;
-  --color-text-val: #1c1917;
-  --color-text-muted-val: #8c7f70;
+  --color-surface-dark-val: #f0fdfa;
+  --color-border-val: #e2e8f0;
+  --color-text-val: #0f172a;
+  --color-text-muted-val: #64748b;
 }
 
 .dark {
-  --color-primary-val: #fbbf24;
-  --color-primary-hover-val: #fb7185;
-  --color-surface-val: #0a0a0a;
-  --color-surface-dark-val: #171412;
-  --color-border-val: #2a2622;
-  --color-text-val: #f5f0ec;
-  --color-text-muted-val: #8a7e75;
+  --color-primary-val: #14b8a6;
+  --color-primary-hover-val: #2dd4bf;
+  --color-surface-val: #0b1117;
+  --color-surface-dark-val: #131b26;
+  --color-border-val: #1e293b;
+  --color-text-val: #f1f5f9;
+  --color-text-muted-val: #94a3b8;
 }
 
 html,
@@ -134,3 +134,11 @@ input[type="checkbox"]:focus-visible {
   outline: 2px solid var(--color-primary-val);
   outline-offset: 2px;
 }
+
+/* Drag regions styling */
+[data-tauri-drag-region] {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+

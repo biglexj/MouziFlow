@@ -43,12 +43,12 @@ export interface AppSettings {
 }
 
 export const defaultSettings: AppSettings = {
-  language: 'en',
+  language: 'es',
   theme: 'system',
   telemetry_enabled: false,
   first_run: true,
   autostart: true,
-  grace_period_seconds: 300,
+  grace_period_seconds: 3,
   lock_check_enabled: true,
 };
 
@@ -61,9 +61,16 @@ export interface ScheduleSettings {
   schedule_time_4: string | null;
 }
 
+export interface PresetFolder {
+  name: string;
+  path: string;
+  icon_type: string;
+}
+
 interface AppState {
   rules: Rule[];
   folders: WatchedFolder[];
+  presetFolders: PresetFolder[];
   logs: ActionLog[];
   stats: { file_type: string; count: number }[];
   settings: AppSettings | null;
@@ -71,18 +78,21 @@ interface AppState {
   pendingFiles: [string, string][];
   isLoading: boolean;
   currentView: 'popup' | 'settings';
+  setCurrentView: (view: 'popup' | 'settings') => void;
 
   loadSettings: () => Promise<void>;
   saveSettings: (settings: AppSettings) => Promise<void>;
   setAutostart: (enabled: boolean) => Promise<void>;
   loadRules: () => Promise<void>;
   loadFolders: () => Promise<void>;
+  loadPresetFolders: () => Promise<void>;
   loadLogs: () => Promise<void>;
   loadStats: () => Promise<void>;
   scanFolder: (path: string) => Promise<{ file: string; rule: string; destination: string }[]>;
   undoAction: (id: number) => Promise<boolean>;
   undoAll: () => Promise<number>;
   addFolder: (path: string, mode: string) => Promise<void>;
+  addFolders: (paths: string[], mode?: string) => Promise<void>;
   removeFolder: (id: number) => Promise<void>;
   updateFolderMode: (id: number, mode: string) => Promise<void>;
   addRule: (rule: Rule) => Promise<void>;
@@ -99,6 +109,7 @@ interface AppState {
 export const useAppStore = create<AppState>((set, get) => ({
   rules: [],
   folders: [],
+  presetFolders: [],
   logs: [],
   stats: [],
   settings: null,
@@ -106,6 +117,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   pendingFiles: [],
   isLoading: false,
   currentView: 'popup',
+  setCurrentView: (currentView) => set({ currentView }),
 
   loadSettings: async () => {
     const settings = await invoke<AppSettings>('get_settings_cmd');
@@ -138,6 +150,15 @@ export const useAppStore = create<AppState>((set, get) => ({
   loadFolders: async () => {
     const folders = await invoke<WatchedFolder[]>('get_folders_cmd');
     set({ folders });
+  },
+
+  loadPresetFolders: async () => {
+    try {
+      const presetFolders = await invoke<PresetFolder[]>('get_preset_folders_cmd');
+      set({ presetFolders });
+    } catch (e) {
+      console.error('loadPresetFolders failed:', e);
+    }
   },
 
   loadLogs: async () => {
@@ -186,6 +207,20 @@ export const useAppStore = create<AppState>((set, get) => ({
       await get().loadFolders();
     } catch (e) {
       console.error('addFolder failed:', e);
+      throw e;
+    }
+  },
+
+  addFolders: async (paths, mode = 'silent') => {
+    try {
+      for (const path of paths) {
+        if (path && path.trim()) {
+          await invoke('add_folder_cmd', { path: path.trim(), mode });
+        }
+      }
+      await get().loadFolders();
+    } catch (e) {
+      console.error('addFolders failed:', e);
       throw e;
     }
   },
@@ -263,3 +298,4 @@ export const useAppStore = create<AppState>((set, get) => ({
     return count;
   },
 }));
+

@@ -2207,7 +2207,7 @@ dependencies = [
 
 [[package]]
 name = "mouzi"
-version = "0.1.6"
+version = "0.2.0"
 dependencies = [
  "chrono",
  "directories",
@@ -2230,6 +2230,7 @@ dependencies = [
  "tauri-plugin-single-instance",
  "tauri-winrt-notification",
  "thiserror 1.0.69",
+ "windows-sys 0.59.0",
  "zip",
 ]
 

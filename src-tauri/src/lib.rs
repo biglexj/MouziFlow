@@ -28,18 +28,20 @@ pub struct AppState {
     pub scheduler: scheduler::Scheduler,
 }
 
+static APP_HANDLE: once_cell::sync::OnceCell<tauri::AppHandle> = once_cell::sync::OnceCell::new();
+
+pub fn request_show_popup() {
+    if let Some(app) = APP_HANDLE.get() {
+        crate::tray::show_popup_window(app);
+    }
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     let ignored_files = Arc::new(Mutex::new(HashMap::new()));
     let pending_open_folder: Arc<Mutex<Option<String>>> = Arc::new(Mutex::new(None));
     tauri::Builder::default()
-        .plugin(tauri_plugin_opener::init())
-        .plugin(tauri_plugin_notification::init())
-        .plugin(tauri_plugin_dialog::init())
-        .plugin(tauri_plugin_autostart::init(
-            tauri_plugin_autostart::MacosLauncher::LaunchAgent,
-            Some(vec!["--autostart"]),
-        ))
+        // Register single-instance first to intercept secondary instances immediately
         .plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
             // When Windows activates the app (e.g. user clicked a notification),
             // open any pending folder first, then show the popup.
@@ -67,15 +69,16 @@ pub fn run() {
                     }
                 }
             }
-            // Bring popup window to focus
-            if let Some(window) = app.get_webview_window("popup") {
-                let _ = window.show();
-                let _ = window.set_focus();
-            } else if let Some(window) = app.get_webview_window("settings") {
-                let _ = window.show();
-                let _ = window.set_focus();
-            }
+            // Bring popup window to focus or create it
+            crate::tray::show_popup_window(app);
         }))
+        .plugin(tauri_plugin_opener::init())
+        .plugin(tauri_plugin_notification::init())
+        .plugin(tauri_plugin_dialog::init())
+        .plugin(tauri_plugin_autostart::init(
+            tauri_plugin_autostart::MacosLauncher::LaunchAgent,
+            Some(vec!["--autostart"]),
+        ))
         .manage(AppState {
             watcher: Arc::new(Mutex::new(FolderWatcher::new(
                 ignored_files.clone(),
@@ -91,16 +94,58 @@ pub fn run() {
             app.set_activation_policy(ActivationPolicy::Accessory);
 
             let app_handle = app.handle().clone();
+            let _ = APP_HANDLE.set(app_handle.clone());
 
-            // Initialize database
-            if let Some(proj_dirs) = ProjectDirs::from("cc", "mouzi", "mouzi") {
+            // Initialize database: isolate development database from production database
+            let app_folder = if cfg!(debug_assertions) { "mouzi-dev" } else { "mouzi" };
+            if let Some(proj_dirs) = ProjectDirs::from("cc", "mouzi", app_folder) {
                 let data_dir = proj_dirs.data_dir().to_path_buf();
                 std::fs::create_dir_all(&data_dir).ok();
                 init_db(data_dir.clone()).expect("Failed to initialize database");
+                let _ = db::migrate_rules_to_relative();
+            }
+
+            // Set close prevention handler and restore position on popup window
+            if let Some(window) = app.get_webview_window("popup") {
+                let saved_pos = db::get_window_position().unwrap_or(None);
+                if let Some((x, y)) = saved_pos {
+                    let _ = window.set_position(tauri::PhysicalPosition::new(x, y));
+                } else {
+                    #[cfg(target_os = "windows")]
+                    if let Ok(Some(monitor)) = app.primary_monitor() {
+                        let size = monitor.size();
+                        let pos = monitor.position();
+                        let scale = monitor.scale_factor();
+                        let win_w = (420.0 * scale) as i32;
+                        let win_h = (620.0 * scale) as i32;
+                        let margin_x = (24.0 * scale) as i32;
+                        let margin_y = (64.0 * scale) as i32;
+                        let _ = window.set_position(tauri::PhysicalPosition::new(
+                            pos.x + size.width as i32 - win_w - margin_x,
+                            pos.y + size.height as i32 - win_h - margin_y,
+                        ));
+                    }
+                }
+                let win_clone = window.clone();
+                window.on_window_event(move |event| {
+                    match event {
+                        tauri::WindowEvent::CloseRequested { api, .. } => {
+                            api.prevent_close();
+                            if let Ok(pos) = win_clone.outer_position() {
+                                let _ = db::save_window_position(pos.x, pos.y);
+                            }
+                            let _ = win_clone.hide();
+                        }
+                        tauri::WindowEvent::Moved(pos) => {
+                            let _ = db::save_window_position(pos.x, pos.y);
+                        }
+                        _ => {}
+                    }
+                });
             }
 
             // Initialize default rules on first run
-            let is_first_run = if let Ok(settings) = db::get_settings() {
+            let _is_first_run = if let Ok(settings) = db::get_settings() {
                 let first = settings.first_run;
                 if first {
                     let downloads = commands::get_downloads_folder();
@@ -118,11 +163,12 @@ pub fn run() {
             // Setup system tray
             let tray_lang = db::get_settings()
                 .map(|s| s.language)
-                .unwrap_or_else(|_| "en".to_string());
+                .unwrap_or_else(|_| "es".to_string());
             tray::setup_tray(&app_handle, &tray_lang)?;
 
-            // On first launch, show the popup so the user knows the app is running
-            if is_first_run {
+            // Show the popup on manual launch so the user sees the interface immediately
+            let is_autostart = std::env::args().any(|arg| arg == "--autostart");
+            if !is_autostart {
                 tray::show_popup_window(&app_handle);
             }
 
@@ -181,6 +227,7 @@ pub fn run() {
             save_mouziignore_cmd,
             get_pending_open_folder_cmd,
             show_popup_cmd,
+            show_settings_cmd,
             get_pending_files_cmd,
             refresh_watcher_cmd,
             get_schedule_cmd,
@@ -188,6 +235,11 @@ pub fn run() {
             get_version_cmd,
             export_rules_cmd,
             import_rules_cmd,
+            get_preset_folders_cmd,
+            set_view_mode_cmd,
+            start_dragging_cmd,
+            get_window_position_cmd,
+            set_window_position_cmd,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

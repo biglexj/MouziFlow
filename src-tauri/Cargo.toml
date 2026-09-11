@@ -1,13 +1,13 @@
 [package]
 name = "mouzi"
-version = "0.1.6"
+version = "0.2.0"
 description = "Mouzi - Intelligent file organizer for Windows"
 authors = ["mouzi"]
 edition = "2021"
 
 [lib]
 name = "mouzi_lib"
-crate-type = ["staticlib", "cdylib", "rlib"]
+crate-type = ["staticlib", "rlib"]
 
 [build-dependencies]
 tauri-build = { version = "2", features = [] }
@@ -36,3 +36,4 @@ zip = { version = "=0.6.6", default-features = false, features = ["deflate"] }
 
 [target.'cfg(target_os = "windows")'.dependencies]
 tauri-winrt-notification = "0.7.2"
+windows-sys = { version = "0.59", features = ["Win32_Foundation", "Win32_System_Threading", "Win32_Security"] }
