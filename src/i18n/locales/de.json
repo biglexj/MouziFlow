@@ -1,11 +1,11 @@
 {
   "app": {
-    "name": "Mouzi",
-    "tagline": "Herunterladen, vergessen – es erinnert sich",
-    "loading": "Mouzi..."
+    "name": "MouziFlow",
+    "tagline": "Herunterladen, vergessen – MouziFlow erinnert sich",
+    "loading": "MouziFlow..."
   },
   "popup": {
-    "title": "Mouzi",
+    "title": "MouziFlow",
     "cleanNow": "Jetzt aufräumen",
     "openDownloads": "Downloads öffnen",
     "recentActions": "Letzte Aktionen",
@@ -20,7 +20,7 @@
     "cleanManual": "Jetzt aufräumen"
   },
   "settings": {
-    "title": "Mouzi Einstellungen",
+    "title": "MouziFlow Einstellungen",
     "folders": {
       "title": "Überwachte Ordner",
       "add": "Ordner hinzufügen",
@@ -32,11 +32,11 @@
       "modeSilent": "Leise (Auto)",
       "modeManual": "Manuell (nur sammeln)",
       "modePaused": "Pausiert",
-      "modeDesc": "Wähle, wie Mouzi Dateien in diesem Ordner behandelt."
+      "modeDesc": "Wähle, wie MouziFlow Dateien in diesem Ordner behandelt."
     },
     "archive": {
       "title": "Archiv importieren",
-      "description": "Wähle ein Google Takeout .zip-, .tgz- oder .tar.gz-Archiv. Mouzi extrahiert es, benennt doppelte verschachtelte Dateien sicher um und führt deine Regeln aus.",
+      "description": "Wähle ein Google Takeout .zip-, .tgz- oder .tar.gz-Archiv. MouziFlow extrahiert es, benennt doppelte verschachtelte Dateien sicher um und führt deine Regeln aus.",
       "import": "Archiv importieren",
       "importing": "Archiv wird importiert...",
       "importingShort": "Importiert...",
@@ -95,7 +95,7 @@
     "ignore": {
       "title": "Ignorieren",
       "rulesTitle": "Ignorierregeln",
-      "description": "Wähle einen überwachten Ordner und definiere Muster für Dateien, die Mouzi überspringen soll. Die Muster werden als .mouziignore-Datei in diesem Ordner gespeichert.",
+      "description": "Wähle einen überwachten Ordner und definiere Muster für Dateien, die MouziFlow überspringen soll. Die Muster werden als .mouziignore-Datei in diesem Ordner gespeichert.",
       "folder": "Ordner",
       "selectFolder": "Ordner auswählen...",
       "patterns": "Muster",
@@ -110,13 +110,13 @@
     "about": {
       "title": "Über",
       "tagline": "Deine Downloads, im Griff.",
-      "description": "Mouzi ist ein stiller, eleganter Datei-Organizer, der in deinem System-Tray lebt und deinen Downloads-Ordner (und jeden anderen Ordner) automatisch ordentlich hält. Er arbeitet leise im Hintergrund, überwacht ausgewählte Ordner und verschiebt, benennt um oder sortiert Dateien nach anpassbaren Regeln.",
+      "description": "MouziFlow ist ein stiller, eleganter Datei-Organizer, der in deinem System-Tray lebt und deinen Downloads-Ordner (und jeden anderen Ordner) automatisch ordentlich hält. Er arbeitet leise im Hintergrund, überwacht ausgewählte Ordner und verschiebt, benennt um oder sortiert Dateien nach anpassbaren Regeln.",
       "checkUpdates": "Nach Updates suchen",
-      "support": "Mouzi auf Ko-fi unterstützen",
-      "supportDesc": "Deine Unterstützung hilft, Mouzi weiter zu verbessern. Danke! 🙏",
+      "support": "MouziFlow auf Ko-fi unterstützen",
+      "supportDesc": "Deine Unterstützung hilft, MouziFlow weiter zu verbessern. Danke! 🙏",
       "versionLabel": "Version",
       "releaseDateLabel": "Veröffentlicht am",
-      "builtBy": "Mit Liebe gemacht von hsr"
+      "builtBy": "MouziFlow Edition gepflegt von Biglex J (Original von hsr88)"
     },
     "scheduler": {
       "title": "Zeitplaner",

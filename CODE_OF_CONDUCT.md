@@ -1,8 +1,8 @@
 # Code of Conduct
 
-Mouzi is built in the open, and everyone should be able to participate without being treated badly.
+MouziFlow is built in the open, and everyone should be able to participate without being treated badly.
 
-This code of conduct applies to project issues, pull requests, discussions, reviews, and other spaces connected to the Mouzi community.
+This code of conduct applies to project issues, pull requests, discussions, reviews, and other spaces connected to the MouziFlow community.
 
 ## Expected Behavior
 
@@ -34,7 +34,7 @@ Project maintainers may edit or remove comments, reject contributions, lock conv
 
 Responses will depend on the context and severity of the behavior. Decisions are made to protect contributors and keep the project productive.
 
-If you experience or witness unacceptable behavior, contact the project maintainer privately using a contact method listed on the [maintainer's GitHub profile](https://github.com/hsr88).
+If you experience or witness unacceptable behavior, contact the project maintainer privately using a contact method listed on the [maintainer's GitHub profile](https://github.com/biglexj).
 
 Please do not publish sensitive details in a public issue.
 
@@ -42,4 +42,4 @@ Reports will be reviewed as privately and fairly as possible. Retaliation agains
 
 ## Scope
 
-This code of conduct applies when participating in Mouzi project spaces or representing the project in public.
+This code of conduct applies when participating in MouziFlow project spaces or representing the project in public.

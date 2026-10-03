@@ -1,8 +1,8 @@
 [package]
 name = "mouzi"
-version = "0.2.0"
-description = "Mouzi - Intelligent file organizer for Windows"
-authors = ["mouzi"]
+version = "0.2.1"
+description = "MouziFlow - Intelligent file organizer for Windows"
+authors = ["biglexj", "MouziFlow"]
 edition = "2021"
 
 [lib]

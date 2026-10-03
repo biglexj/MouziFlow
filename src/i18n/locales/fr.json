@@ -1,11 +1,11 @@
 {
   "app": {
-    "name": "Mouzi",
-    "tagline": "Téléchargez, oubliez – il se souvient",
-    "loading": "Mouzi..."
+    "name": "MouziFlow",
+    "tagline": "Téléchargez, oubliez – MouziFlow se souvient",
+    "loading": "MouziFlow..."
   },
   "popup": {
-    "title": "Mouzi",
+    "title": "MouziFlow",
     "cleanNow": "Nettoyer maintenant",
     "openDownloads": "Ouvrir Téléchargements",
     "recentActions": "Actions récentes",
@@ -20,7 +20,7 @@
     "cleanManual": "Nettoyer maintenant"
   },
   "settings": {
-    "title": "Paramètres Mouzi",
+    "title": "Paramètres MouziFlow",
     "folders": {
       "title": "Dossiers surveillés",
       "add": "Ajouter un dossier",
@@ -32,11 +32,11 @@
       "modeSilent": "Silencieux (auto)",
       "modeManual": "Manuel (collecte uniquement)",
       "modePaused": "En pause",
-      "modeDesc": "Choisissez comment Mouzi gère les fichiers dans ce dossier."
+      "modeDesc": "Choisissez comment MouziFlow gère les fichiers dans ce dossier."
     },
     "archive": {
       "title": "Importer une archive",
-      "description": "Choisissez une archive Google Takeout .zip, .tgz ou .tar.gz. Mouzi l'extrait, renomme sûrement les doublons imbriqués et exécute vos règles.",
+      "description": "Choisissez une archive Google Takeout .zip, .tgz ou .tar.gz. MouziFlow l'extrait, renomme sûrement les doublons imbriqués et exécute vos règles.",
       "import": "Importer l'archive",
       "importing": "Import de l'archive...",
       "importingShort": "Import...",
@@ -95,7 +95,7 @@
     "ignore": {
       "title": "Ignorer",
       "rulesTitle": "Règles d'exclusion",
-      "description": "Choisissez un dossier surveillé et définissez des motifs pour les fichiers que Mouzi doit ignorer. Les motifs sont enregistrés dans un fichier .mouziignore dans ce dossier.",
+      "description": "Choisissez un dossier surveillé et définissez des motifs pour les fichiers que MouziFlow doit ignorer. Les motifs sont enregistrés dans un fichier .mouziignore dans ce dossier.",
       "folder": "Dossier",
       "selectFolder": "Sélectionner un dossier...",
       "patterns": "Motifs",
@@ -110,13 +110,13 @@
     "about": {
       "title": "À propos",
       "tagline": "Vos téléchargements, domptés.",
-      "description": "Mouzi est un organiseur de fichiers silencieux et élégant qui vit dans votre barre d'état système et garde automatiquement votre dossier Téléchargements (et tout autre dossier) bien rangé. Il fonctionne tranquillement en arrière-plan, surveille les dossiers sélectionnés et déplace, renomme ou trie les fichiers selon des règles personnalisables.",
+      "description": "MouziFlow est un organiseur de fichiers silencieux et élégant qui vit dans votre barre d'état système et garde automatiquement votre dossier Téléchargements (et tout autre dossier) bien rangé. Il fonctionne tranquillement en arrière-plan, surveille les dossiers sélectionnés et déplace, renomme ou trie les fichiers selon des règles personnalisables.",
       "checkUpdates": "Vérifier les mises à jour",
-      "support": "Soutenir Mouzi sur Ko-fi",
-      "supportDesc": "Votre soutien permet d'améliorer Mouzi. Merci ! 🙏",
+      "support": "Soutenir MouziFlow sur Ko-fi",
+      "supportDesc": "Votre soutien permet d'améliorer MouziFlow. Merci ! 🙏",
       "versionLabel": "Version",
       "releaseDateLabel": "Sorti le",
-      "builtBy": "Conçu avec soin par hsr"
+      "builtBy": "MouziFlow Edition maintenu par Biglex J (Original par hsr88)"
     },
     "scheduler": {
       "title": "Planificateur",

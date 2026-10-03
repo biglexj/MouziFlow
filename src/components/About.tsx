@@ -28,7 +28,7 @@ export default function About() {
           className="h-12 w-12 rounded-xl"
         />
         <div>
-          <h2 className="text-xl font-semibold">Mouzi</h2>
+          <h2 className="text-xl font-semibold">MouziFlow</h2>
           <p className="text-sm text-text-muted">{t("settings.about.tagline")}</p>
         </div>
       </div>
@@ -55,7 +55,7 @@ export default function About() {
       <button
         onClick={() =>
           invoke("open_folder_cmd", {
-            path: "https://mouzi.cc/#download",
+            path: "https://github.com/biglexj/MouziFlow/releases",
           })
         }
         className="flex w-full items-center gap-2 rounded-lg border border-border bg-surface px-4 py-2.5 text-sm font-medium text-text hover:bg-border transition-colors"
@@ -69,12 +69,12 @@ export default function About() {
       <div className="pt-2 border-t border-border">
         <button
           onClick={() =>
-            invoke("open_folder_cmd", { path: "https://github.com/hsr88" })
+            invoke("open_folder_cmd", { path: "https://github.com/biglexj/MouziFlow" })
           }
           className="flex items-center gap-2 text-sm text-primary hover:underline"
         >
           <ExternalLink size={16} />
-          github.com/hsr88
+          github.com/biglexj/MouziFlow
         </button>
         <p className="text-xs text-text-muted mt-1">{t("settings.about.builtBy")}</p>
       </div>
@@ -83,7 +83,7 @@ export default function About() {
       <div className="pt-4 border-t border-border text-center">
         <button
           onClick={() =>
-            invoke("open_folder_cmd", { path: "https://ko-fi.com/hsr" })
+            invoke("open_folder_cmd", { path: "https://ko-fi.com/biglexj" })
           }
           className="inline-flex items-center gap-2 rounded-xl bg-[#ff5e5b] px-8 py-3 text-base font-semibold text-white shadow-lg shadow-[#ff5e5b]/20 hover:bg-[#e05451] hover:shadow-xl hover:shadow-[#ff5e5b]/30 hover:-translate-y-0.5 transition-all"
         >

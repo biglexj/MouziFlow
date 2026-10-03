@@ -1,11 +1,11 @@
 {
   "app": {
-    "name": "Mouzi",
-    "tagline": "ダウンロードして、あとは忘れよう – Mouziが覚えています",
-    "loading": "Mouzi..."
+    "name": "MouziFlow",
+    "tagline": "ダウンロードして、あとは忘れよう – MouziFlowが覚えています",
+    "loading": "MouziFlow..."
   },
   "popup": {
-    "title": "Mouzi",
+    "title": "MouziFlow",
     "cleanNow": "今すぐ整理",
     "openDownloads": "ダウンロードフォルダを開く",
     "recentActions": "最近のアクション",
@@ -20,7 +20,7 @@
     "cleanManual": "今すぐ整理"
   },
   "settings": {
-    "title": "Mouziの設定",
+    "title": "MouziFlowの設定",
     "folders": {
       "title": "監視対象フォルダ",
       "add": "フォルダを追加",
@@ -32,11 +32,11 @@
       "modeSilent": "サイレント（自動）",
       "modeManual": "手動（収集のみ）",
       "modePaused": "一時停止",
-      "modeDesc": "このフォルダのファイルを Mouzi がどう扱うか選んでください。"
+      "modeDesc": "このフォルダのファイルを MouziFlow がどう扱うか選んでください。"
     },
     "archive": {
       "title": "アーカイブをインポート",
-      "description": "Google Takeout の .zip、.tgz、または .tar.gz アーカイブを選択します。Mouzi が展開し、重複する入れ子の名前を安全に変更してルールを実行します。",
+      "description": "Google Takeout の .zip、.tgz、または .tar.gz アーカイブを選択します。MouziFlow が展開し、重複する入れ子の名前を安全に変更してルールを実行します。",
       "import": "アーカイブをインポート",
       "importing": "アーカイブをインポートしています...",
       "importingShort": "インポート中...",
@@ -95,7 +95,7 @@
     "ignore": {
       "title": "除外",
       "rulesTitle": "除外ルール",
-      "description": "監視対象フォルダを選択して、Mouziがスキップするファイルのパターンを設定します。パターンは .mouziignoreファイルとしてフォルダ内に保存されます。",
+      "description": "監視対象フォルダを選択して、MouziFlowがスキップするファイルのパターンを設定します。パターンは .mouziignoreファイルとしてフォルダ内に保存されます。",
       "folder": "フォルダ",
       "selectFolder": "フォルダを選択...",
       "patterns": "パターン",
@@ -108,15 +108,15 @@
       "remove": "削除"
     },
     "about": {
-      "title": "Mouziについて",
+      "title": "MouziFlowについて",
       "tagline": "ダウンロードを、思い通りに。",
-      "description": "Mouziは、システムトレイに常駐する静かで洗練されたファイルオーガナイザーで、ダウンロードフォルダ(およびその他のフォルダ)を自動で整理します。バックグラウンドで静かに動作し、カスタマイズ可能なルールに基づきファイルを移動、名前の変更、または並べ替えます。",
+      "description": "MouziFlowは、システムトレイに常駐する静かで洗練されたファイルオーガナイザーで、ダウンロードフォルダ(およびその他のフォルダ)を自動で整理します。バックグラウンドで静かに動作し、カスタマイズ可能なルールに基づきファイルを移動、名前の変更、または並べ替えます。",
       "checkUpdates": "アップデートを確認",
-      "support": "Ko-fiでMouziを支援する",
-      "supportDesc": "皆様のご支援により、Mouziは日々進化し続けています。支援していただき、ありがとうございます！ 🙏",
+      "support": "Ko-fiでMouziFlowを支援する",
+      "supportDesc": "皆様のご支援により、MouziFlowは日々進化し続けています。支援していただき、ありがとうございます！ 🙏",
       "versionLabel": "バージョン",
       "releaseDateLabel": "リリース日",
-      "builtBy": "hsrが心を込めて作りました"
+      "builtBy": "Biglex Jにより保守されるMouziFlowエディション（オリジナル: hsr88）"
     },
     "scheduler": {
       "title": "スケジューラ",

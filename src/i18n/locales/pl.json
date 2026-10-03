@@ -1,11 +1,11 @@
 {
   "app": {
-    "name": "Mouzi",
-    "tagline": "Pobierasz, zapominasz – on pamięta",
-    "loading": "Mouzi..."
+    "name": "MouziFlow",
+    "tagline": "Pobierasz, zapominasz – MouziFlow pamięta",
+    "loading": "MouziFlow..."
   },
   "popup": {
-    "title": "Mouzi",
+    "title": "MouziFlow",
     "cleanNow": "Posprzątaj teraz",
     "openDownloads": "Otwórz Pobrane",
     "recentActions": "Ostatnie akcje",
@@ -20,7 +20,7 @@
     "cleanManual": "Posprzątaj teraz"
   },
   "settings": {
-    "title": "Ustawienia Mouzi",
+    "title": "Ustawienia MouziFlow",
     "folders": {
       "title": "Monitorowane foldery",
       "add": "Dodaj folder",
@@ -32,11 +32,11 @@
       "modeSilent": "Cichy (auto)",
       "modeManual": "Ręczny (tylko zbieraj)",
       "modePaused": "Wstrzymany",
-      "modeDesc": "Wybierz, jak Mouzi ma obsługiwać pliki w tym folderze."
+      "modeDesc": "Wybierz, jak MouziFlow ma obsługiwać pliki w tym folderze."
     },
     "archive": {
       "title": "Importuj archiwum",
-      "description": "Wybierz archiwum Google Takeout .zip, .tgz lub .tar.gz. Mouzi je wypakuje, bezpiecznie zmieni nazwy zduplikowanych plików z podfolderów i uruchomi Twoje reguły.",
+      "description": "Wybierz archiwum Google Takeout .zip, .tgz lub .tar.gz. MouziFlow je wypakuje, bezpiecznie zmieni nazwy zduplikowanych plików z podfolderów i uruchomi Twoje reguły.",
       "import": "Importuj archiwum",
       "importing": "Importowanie archiwum...",
       "importingShort": "Importowanie...",
@@ -95,7 +95,7 @@
     "ignore": {
       "title": "Ignoruj",
       "rulesTitle": "Reguły ignorowania",
-      "description": "Wybierz monitorowany folder i ustaw wzorce dla plików, które Mouzi powinien pominąć. Wzorce są zapisywane jako plik .mouziignore w tym folderze.",
+      "description": "Wybierz monitorowany folder i ustaw wzorce dla plików, które MouziFlow powinien pominąć. Wzorce są zapisywane jako plik .mouziignore w tym folderze.",
       "folder": "Folder",
       "selectFolder": "Wybierz folder...",
       "patterns": "Wzorce",
@@ -110,13 +110,13 @@
     "about": {
       "title": "O aplikacji",
       "tagline": "Twoje pobrane, pod kontrolą.",
-      "description": "Mouzi to cichy, elegancki organizer plików, który mieszka w zasobniku systemowym i automatycznie utrzymuje porządek w folderze Pobrane (i dowolnym innym folderze). Działa cicho w tle, monitoruje wybrane foldery i przenosi, zmienia nazwy lub sortuje pliki na podstawie konfigurowalnych reguł.",
+      "description": "MouziFlow to cichy, elegancki organizer plików, który mieszka w zasobniku systemowym i automatycznie utrzymuje porządek w folderze Pobrane (i dowolnym innym folderze). Działa cicho w tle, monitoruje wybrane foldery i przenosi, zmienia nazwy lub sortuje pliki na podstawie konfigurowalnych reguł.",
       "checkUpdates": "Sprawdź aktualizacje",
-      "support": "Wesprzyj Mouzi na Ko-fi",
-      "supportDesc": "Twoje wsparcie pomaga ulepszać Mouzi. Dziękuję! 🙏",
+      "support": "Wesprzyj MouziFlow na Ko-fi",
+      "supportDesc": "Twoje wsparcie pomaga ulepszać MouziFlow. Dziękuję! 🙏",
       "versionLabel": "Wersja",
       "releaseDateLabel": "Data wydania",
-      "builtBy": "Stworzone z pasją przez hsr"
+      "builtBy": "Wydanie MouziFlow rozwijane przez Biglex J (Oryginał: hsr88)"
     },
     "scheduler": {
       "title": "Harmonogram",

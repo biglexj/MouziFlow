@@ -18,6 +18,17 @@
 
 Registro histórico de cambios y versiones del proyecto.
 
+## [0.2.1] - 2026-10-03
+
+### Resumen
+Actualización de mantenimiento e identidad visual. Se consolida el branding oficial a MouziFlow en todos los componentes del sistema: tooltips de la bandeja del sistema en los 10 idiomas oficiales, ventana principal y encabezados de configuración, notificaciones del sistema, paquetes de idioma y artefactos del instalador oficial.
+
+### Detalles
+- **Consolidación de marca en bandeja del sistema (System Tray)**: Actualización de tooltips de estado, contadores de archivos pendientes y títulos en la bandeja del sistema para reflejar de forma consistente la identidad MouziFlow en todos los idiomas soportados.
+- **Unificación de interfaz y configuración**: Actualización del título de la ventana y de las vistas principales (Popup, Configuración y Acerca de), integrando enlaces oficiales del proyecto y sincronización del nombre por defecto en la exportación de reglas (`mouziflow-rules.json`).
+- **Alineación de empaquetado e instalador**: Configuración de `productName` a nivel de Tauri y scripts de compilación NSIS para generar de forma nativa el instalador unificado `MouziFlow_0.2.1_x64-setup.exe` y control de procesos preinstalación.
+- **Sincronización de internacionalización y documentación**: Actualización completa de las cadenas de marca en los 10 archivos de idioma (`es.json`, `en.json`, `de.json`, `fr.json`, `it.json`, `ja.json`, `pl.json`, `ru.json`, `uk.json`, `vi.json`), políticas de seguridad y guías de contribución.
+
 ## [0.2.0] - 2026-09-11
 
 ### Resumen

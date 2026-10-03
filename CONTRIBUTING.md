@@ -1,8 +1,8 @@
-# Contributing to Mouzi
+# Contributing to MouziFlow
 
-Thanks for taking the time to contribute to Mouzi.
+Thanks for taking the time to contribute to MouziFlow.
 
-Mouzi is a privacy-first file organizer built with Tauri, Rust, React, and TypeScript. Contributions of all sizes are welcome — from bug reports and translations to documentation improvements and new features.
+MouziFlow is a privacy-first file organizer built with Tauri, Rust, React, and TypeScript. Contributions of all sizes are welcome — from bug reports and translations to documentation improvements and new features.
 
 ## Before You Start
 
@@ -15,8 +15,8 @@ Small fixes, documentation improvements, and translation updates can be submitte
 Before opening a new issue:
 
 1. Check whether the issue has already been reported.
-2. Make sure you are using the latest version of Mouzi.
-3. Include your operating system and Mouzi version.
+2. Make sure you are using the latest version of MouziFlow.
+3. Include your operating system and MouziFlow version.
 4. Describe what you expected to happen and what actually happened.
 5. Include steps to reproduce the problem.
 6. Add screenshots or logs when they help explain the issue.
@@ -32,7 +32,7 @@ Feature requests are welcome. Please explain:
 * How you imagine it working.
 * Whether you would be interested in implementing it.
 
-Mouzi aims to remain lightweight, local-first, and easy to understand. Features that require cloud processing, user accounts, or unnecessary data collection may not fit the project.
+MouziFlow aims to remain lightweight, local-first, and easy to understand. Features that require cloud processing, user accounts, or unnecessary data collection may not fit the project.
 
 ## Development Setup
 
@@ -44,7 +44,7 @@ Mouzi aims to remain lightweight, local-first, and easy to understand. Features 
 * Windows SDK and MSVC Build Tools on Windows
 * WebKitGTK and AppIndicator development packages on Linux
 
-### Running Mouzi locally
+### Running MouziFlow locally
 
 ```bash
 git clone https://github.com/biglexj/MouziFlow.git
@@ -82,7 +82,7 @@ A pull request may be changed or declined if it adds unnecessary complexity, bre
 
 ## Translations
 
-Mouzi keeps its interface translations in JSON files under [`src/i18n/locales`](src/i18n/locales). You can improve an existing translation or add a new language without changing the file-organizing logic.
+MouziFlow keeps its interface translations in JSON files under [`src/i18n/locales`](src/i18n/locales). You can improve an existing translation or add a new language without changing the file-organizing logic.
 
 ### Improve an existing translation
 
@@ -113,7 +113,7 @@ If you are comfortable translating but not editing TypeScript or Rust, submit th
 ### Translation rules
 
 * Use natural wording rather than translating each English word literally.
-* Keep Mouzi, file extensions, keyboard shortcuts, placeholders, and example paths unchanged unless localization is necessary.
+* Keep MouziFlow, file extensions, keyboard shortcuts, placeholders, and example paths unchanged unless localization is necessary.
 * Preserve punctuation or whitespace when it is part of a placeholder or path.
 * Do not translate text that is not present in the English locale without explaining why in the pull request.
 * Test narrow windows and longer labels where possible; a correct translation should not make buttons or settings unusable.
@@ -131,5 +131,5 @@ Si deseas que tu proyecto o versión aparezca visible en la plataforma Aurora (`
 
 By submitting a contribution, you agree that it may be distributed under the project's [MIT License](LICENSE).
 
-Thank you for helping make Mouzi better.
+Thank you for helping make MouziFlow better.
 

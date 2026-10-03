@@ -307,7 +307,7 @@ export default function Settings() {
     try {
       const path = await save({
         filters: [{ name: "JSON", extensions: ["json"] }],
-        defaultPath: "mouzi-rules.json",
+        defaultPath: "mouziflow-rules.json",
       });
       if (path) {
         await exportRules(path);

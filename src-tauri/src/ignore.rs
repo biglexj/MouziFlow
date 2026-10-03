@@ -39,7 +39,7 @@ pub fn load_mouziignore(folder_path: &str) -> Vec<String> {
 /// Writes a header comment, then one pattern per line.
 pub fn save_mouziignore(folder_path: &str, patterns: &[String]) -> Result<(), String> {
     let path = Path::new(folder_path).join(".mouziignore");
-    let mut content = String::from("# Mouzi ignore rules\n# https://mouzi.cc/docs\n\n");
+    let mut content = String::from("# MouziFlow ignore rules\n\n");
     for p in patterns {
         content.push_str(&p.replace('#', r"\#"));
         content.push('\n');

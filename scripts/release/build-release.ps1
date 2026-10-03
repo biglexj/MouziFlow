@@ -62,14 +62,20 @@ if (-not (Test-Path $releaseDir)) {
     New-Item -ItemType Directory -Force -Path $releaseDir | Out-Null
 }
 
-$installerTarget = Join-Path $releaseDir "Mouzi_${Version}_x64-setup.exe"
+$installerTarget = Join-Path $releaseDir "MouziFlow_${Version}_x64-setup.exe"
 if (-not (Test-Path $installerTarget)) {
     # Intentar buscar en bundle nativo si no se copió
-    $bundleSource = Join-Path $root "src-tauri\target\release\bundle\nsis\Mouzi_${Version}_x64-setup.exe"
+    $bundleSource = Join-Path $root "src-tauri\target\release\bundle\nsis\MouziFlow_${Version}_x64-setup.exe"
     if (Test-Path $bundleSource) {
         Copy-Item $bundleSource $installerTarget -Force
     } else {
-        throw "No se encontró el instalador generado en: $installerTarget"
+        # Fallback a nombre anterior si existiera
+        $legacyInstaller = Join-Path $releaseDir "Mouzi_${Version}_x64-setup.exe"
+        if (Test-Path $legacyInstaller) {
+            $installerTarget = $legacyInstaller
+        } else {
+            throw "No se encontró el instalador generado en: $installerTarget"
+        }
     }
 }
 
@@ -88,7 +94,8 @@ if ($LocalOnly) {
 
 # 3. Git commit & tag
 Write-Host "[2/4] Registrando en Git..." -ForegroundColor Yellow
-$currentBranch = (& git branch --show-current).Trim()
+$branchOut = (& git branch --show-current)
+$currentBranch = if ($branchOut) { "$branchOut".Trim() } else { "main" }
 if (-not $currentBranch) { $currentBranch = "main" }
 
 git add -A
@@ -98,7 +105,8 @@ if ($hasStagedChanges) {
 }
 
 $tag = "v$Version"
-$hasTag = (& git tag -l $tag).Trim()
+$tagOut = (& git tag -l $tag)
+$hasTag = if ($tagOut) { "$tagOut".Trim() } else { "" }
 if (-not $hasTag) {
     git tag -a $tag -m "Release $tag"
 }

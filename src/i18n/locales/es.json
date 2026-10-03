@@ -1,11 +1,11 @@
 {
   "app": {
-    "name": "Mouzi",
-    "tagline": "Descarga, olvida – Mouzi lo recuerda",
-    "loading": "Mouzi..."
+    "name": "MouziFlow",
+    "tagline": "Descarga, olvida – MouziFlow lo recuerda",
+    "loading": "MouziFlow..."
   },
   "popup": {
-    "title": "Mouzi",
+    "title": "MouziFlow",
     "cleanNow": "Organizar ahora",
     "openDownloads": "Abrir carpeta",
     "openFolderDynamic": "Abrir {{folder}}",
@@ -26,7 +26,7 @@
     "cleanManual": "Organizar ahora"
   },
   "settings": {
-    "title": "Configuración de Mouzi",
+    "title": "Configuración de MouziFlow",
     "folders": {
       "title": "Carpetas monitorizadas",
       "add": "Agregar carpeta",
@@ -44,11 +44,11 @@
       "modeSilent": "Silencioso (auto-organizar)",
       "modeManual": "Manual (solo recolectar)",
       "modePaused": "Pausado",
-      "modeDesc": "Elige cómo Mouzi maneja los archivos en esta carpeta."
+      "modeDesc": "Elige cómo MouziFlow maneja los archivos en esta carpeta."
     },
     "archive": {
       "title": "Importar archivo comprimido",
-      "description": "Elige un archivo .zip, .tgz o .tar.gz (como Google Takeout). Mouzi lo extraerá y aplicará tus reglas automáticamente.",
+      "description": "Elige un archivo .zip, .tgz o .tar.gz (como Google Takeout). MouziFlow lo extraerá y aplicará tus reglas automáticamente.",
       "import": "Importar archivo",
       "importing": "Importando archivo...",
       "importingShort": "Importando...",
@@ -114,7 +114,7 @@
     "ignore": {
       "title": "Excluir",
       "rulesTitle": "Reglas de exclusión",
-      "description": "Selecciona una carpeta monitorizada y define los patrones de archivos que Mouzi debe omitir. Los patrones se guardarán en un archivo .mouziignore dentro de esa carpeta.",
+      "description": "Selecciona una carpeta monitorizada y define los patrones de archivos que MouziFlow debe omitir. Los patrones se guardarán en un archivo .mouziignore dentro de esa carpeta.",
       "folder": "Carpeta",
       "selectFolder": "Seleccionar una carpeta...",
       "patterns": "Patrones",
@@ -131,8 +131,8 @@
       "tagline": "Cualquier carpeta, perfectamente organizada.",
       "description": "MouziFlow es un organizador de archivos silencioso y elegante que vive en tu bandeja del sistema y mantiene cualquier carpeta seleccionada automáticamente ordenada. Se ejecuta silenciosamente en segundo plano, monitorea las carpetas que elijas y mueve, renombra u organiza archivos según reglas personalizables.",
       "checkUpdates": "Buscar actualizaciones",
-      "support": "Apoya a Mouzi en Ko-fi",
-      "supportDesc": "Tu apoyo mantiene a Mouzi mejorando. ¡Gracias! 🙏",
+      "support": "Apoya a MouziFlow en Ko-fi",
+      "supportDesc": "Tu apoyo mantiene a MouziFlow mejorando. ¡Gracias! 🙏",
       "versionLabel": "Versión",
       "releaseDateLabel": "Lanzamiento",
       "builtBy": "MouziFlow Edition mantenido por Biglex J (Original por hsr88)"

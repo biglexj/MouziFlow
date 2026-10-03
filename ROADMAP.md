@@ -17,7 +17,7 @@ Plan de trabajo, objetivos de producto y hoja de ruta estratégica del proyecto.
 
 - [ ] Selector de sonido de confirmación al organizar archivos en modo silencioso.
 - [ ] Vista previa de acciones pendientes con botón de aprobación por lotes.
-- [ ] Integración de menú contextual en el Explorador de Windows («Organizar con Mouzi»).
+- [ ] Integración de menú contextual en el Explorador de Windows («Organizar con MouziFlow»).
 
 ---
 

@@ -1,10 +1,10 @@
 # Security Policy
 
-Mouzi watches folders and automatically moves files, so security and predictable file handling are important to the project.
+MouziFlow watches folders and automatically moves files, so security and predictable file handling are important to the project.
 
 ## Supported Versions
 
-Security updates are provided for the latest released version of Mouzi. Please confirm that the issue still exists in the newest version before submitting a report.
+Security updates are provided for the latest released version of MouziFlow. Please confirm that the issue still exists in the newest version before submitting a report.
 
 ## Reporting a Vulnerability
 
@@ -12,12 +12,12 @@ Please do not report security vulnerabilities through public GitHub issues, disc
 
 Use GitHub's private vulnerability reporting feature:
 
-[Report a vulnerability privately](https://github.com/hsr88/mouzi/security/advisories/new)
+[Report a vulnerability privately](https://github.com/biglexj/MouziFlow/security/advisories/new)
 
 Please include:
 
 * A clear description of the vulnerability.
-* The affected Mouzi version and operating system.
+* The affected MouziFlow version and operating system.
 * Steps required to reproduce the issue.
 * The potential impact.
 * Proof-of-concept files or code, if applicable.
@@ -38,4 +38,4 @@ Good-faith security research is welcome when it:
 * Does not disrupt services or distribute malicious files.
 * Gives the project a reasonable opportunity to address the issue.
 
-Mouzi does not currently operate a paid bug bounty program. Security reports are still greatly appreciated, and researchers may be credited in the release notes if they wish.
+MouziFlow does not currently operate a paid bug bounty program. Security reports are still greatly appreciated, and researchers may be credited in the release notes if they wish.

@@ -1,11 +1,11 @@
 {
   "app": {
-    "name": "Mouzi",
-    "tagline": "Download, forget – it remembers",
-    "loading": "Mouzi..."
+    "name": "MouziFlow",
+    "tagline": "Download, forget – MouziFlow remembers",
+    "loading": "MouziFlow..."
   },
   "popup": {
-    "title": "Mouzi",
+    "title": "MouziFlow",
     "cleanNow": "Clean Now",
     "openDownloads": "Open Folder",
     "openFolderDynamic": "Open {{folder}}",
@@ -25,7 +25,7 @@
     "cleanManual": "Clean Now"
   },
   "settings": {
-    "title": "Mouzi Settings",
+    "title": "MouziFlow Settings",
     "folders": {
       "title": "Watched Folders",
       "add": "Add Folder",
@@ -43,11 +43,11 @@
       "modeSilent": "Silent (auto-organize)",
       "modeManual": "Manual (collect only)",
       "modePaused": "Paused",
-      "modeDesc": "Choose how Mouzi handles files in this folder."
+      "modeDesc": "Choose how MouziFlow handles files in this folder."
     },
     "archive": {
       "title": "Import archive",
-      "description": "Pick a Google Takeout .zip, .tgz, or .tar.gz archive. Mouzi extracts it, flattens duplicate nested names safely, and runs your rules.",
+      "description": "Pick a Google Takeout .zip, .tgz, or .tar.gz archive. MouziFlow extracts it, flattens duplicate nested names safely, and runs your rules.",
       "import": "Import Archive",
       "importing": "Importing archive...",
       "importingShort": "Importing...",
@@ -113,7 +113,7 @@
     "ignore": {
       "title": "Ignore",
       "rulesTitle": "Ignore Rules",
-      "description": "Choose a watched folder and set patterns for files Mouzi should skip. Patterns are saved as a .mouziignore file in that folder.",
+      "description": "Choose a watched folder and set patterns for files MouziFlow should skip. Patterns are saved as a .mouziignore file in that folder.",
       "folder": "Folder",
       "selectFolder": "Select a folder...",
       "patterns": "Patterns",
@@ -128,13 +128,13 @@
     "about": {
       "title": "About",
       "tagline": "Any folder, perfectly organized.",
-      "description": "Mouzi is a silent, elegant file organizer that lives in your system tray and keeps any selected folder automatically tidy. It runs quietly in the background, monitors your chosen folders, and moves, renames, or sorts files based on customizable rules.",
+      "description": "MouziFlow is a silent, elegant file organizer that lives in your system tray and keeps any selected folder automatically tidy. It runs quietly in the background, monitors your chosen folders, and moves, renames, or sorts files based on customizable rules.",
       "checkUpdates": "Check for Updates",
-      "support": "Support Mouzi on Ko-fi",
-      "supportDesc": "Your support keeps Mouzi improving. Thank you! 🙏",
+      "support": "Support MouziFlow on Ko-fi",
+      "supportDesc": "Your support keeps MouziFlow improving. Thank you! 🙏",
       "versionLabel": "Version",
       "releaseDateLabel": "Released",
-      "builtBy": "Built with care by hsr"
+      "builtBy": "MouziFlow Edition maintained by Biglex J (Original by hsr88)"
     },
     "scheduler": {
       "title": "Scheduler",

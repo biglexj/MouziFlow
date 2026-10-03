@@ -6,12 +6,12 @@
     "date": "2026-06-14"
   },
   "app": {
-    "name": "Mouzi",
-    "tagline": "Tải về, quên đi – ứng dụng sẽ nhớ",
-    "loading": "Đang tải Mouzi..."
+    "name": "MouziFlow",
+    "tagline": "Tải về, quên đi – MouziFlow sẽ nhớ",
+    "loading": "Đang tải MouziFlow..."
   },
   "popup": {
-    "title": "Mouzi",
+    "title": "MouziFlow",
     "cleanNow": "Dọn dẹp ngay",
     "openDownloads": "Mở thư mục tải về",
     "recentActions": "Hoạt động gần đây",
@@ -26,7 +26,7 @@
     "cleanManual": "Dọn dẹp ngay"
   },
   "settings": {
-    "title": "Cài đặt Mouzi",
+    "title": "Cài đặt MouziFlow",
     "folders": {
       "title": "Thư mục theo dõi",
       "add": "Thêm thư mục",
@@ -38,11 +38,11 @@
       "modeSilent": "Tự động (ngầm)",
       "modeManual": "Thủ công (chỉ thu thập)",
       "modePaused": "Tạm dừng",
-      "modeDesc": "Chọn cách Mouzi xử lý các tệp trong thư mục này."
+      "modeDesc": "Chọn cách MouziFlow xử lý các tệp trong thư mục này."
     },
     "archive": {
       "title": "Nhập kho lưu trữ",
-      "description": "Chọn một kho lưu trữ Google Takeout .zip, .tgz, hoặc .tar.gz. Mouzi sẽ giải nén nó, sắp xếp các tên lồng trùng nhau một cách an toàn và thực hiện các quy tắc của bạn.",
+      "description": "Chọn một kho lưu trữ Google Takeout .zip, .tgz, hoặc .tar.gz. MouziFlow sẽ giải nén nó, sắp xếp các tên lồng trùng nhau một cách an toàn và thực hiện các quy tắc của bạn.",
       "import": "Nhập kho lưu trữ",
       "importing": "Đang nhập kho lưu trữ...",
       "importingShort": "Đang nhập...",
@@ -101,7 +101,7 @@
     "ignore": {
       "title": "Bỏ qua",
       "rulesTitle": "Quy tắc bỏ qua",
-      "description": "Chọn một thư mục theo dõi và thiết lập các mẫu tệp mà Mouzi nên bỏ qua. Các mẫu này được lưu thành tệp .mouziignore trong thư mục đó.",
+      "description": "Chọn một thư mục theo dõi và thiết lập các mẫu tệp mà MouziFlow nên bỏ qua. Các mẫu này được lưu thành tệp .mouziignore trong thư mục đó.",
       "folder": "Thư mục",
       "selectFolder": "Chọn một thư mục...",
       "patterns": "Mẫu",
@@ -116,13 +116,13 @@
     "about": {
       "title": "Giới thiệu",
       "tagline": "Quản lý tệp tải về của bạn.",
-      "description": "Mouzi là một công cụ sắp xếp tệp tinh tế và chạy ngầm, nằm ở khay hệ thống và tự động giữ cho thư mục Tải về (và bất kỳ thư mục nào khác) luôn gọn gàng. Ứng dụng chạy lặng lẽ dưới nền, theo dõi các thư mục được chọn, rồi di chuyển, đổi tên hoặc phân loại các tệp dựa trên các quy tắc tùy chỉnh.",
+      "description": "MouziFlow là một công cụ sắp xếp tệp tinh tế và chạy ngầm, nằm ở khay hệ thống và tự động giữ cho thư mục Tải về (và bất kỳ thư mục nào khác) luôn gọn gàng. Ứng dụng chạy lặng lẽ dưới nền, theo dõi các thư mục được chọn, rồi di chuyển, đổi tên hoặc phân loại các tệp dựa trên các quy tắc tùy chỉnh.",
       "checkUpdates": "Kiểm tra cập nhật",
-      "support": "Ủng hộ Mouzi trên Ko-fi",
-      "supportDesc": "Sự ủng hộ của bạn giúp Mouzi ngày càng hoàn thiện hơn. Xin cảm ơn! 🙏",
+      "support": "Ủng hộ MouziFlow trên Ko-fi",
+      "supportDesc": "Sự ủng hộ của bạn giúp MouziFlow ngày càng hoàn thiện hơn. Xin cảm ơn! 🙏",
       "versionLabel": "Phiên bản",
       "releaseDateLabel": "Ngày phát hành",
-      "builtBy": "Được phát triển tận tâm bởi hsr"
+      "builtBy": "Phiên bản MouziFlow được duy trì bởi Biglex J (Gốc bởi hsr88)"
     },
     "scheduler": {
       "title": "Lịch trình",

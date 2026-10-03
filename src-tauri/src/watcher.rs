@@ -145,7 +145,7 @@ impl FolderWatcher {
                         let body_clone = body.clone();
                         let _ = std::thread::spawn(move || {
                             let _ = tauri_winrt_notification::Toast::new("cc.mouzi.app")
-                                .title("Mouzi – click to open folder")
+                                .title("MouziFlow – click to open folder")
                                 .text1(&body_clone)
                                 .on_activated(move |_action| {
                                     // Open the folder in Explorer robustly
@@ -163,7 +163,7 @@ impl FolderWatcher {
                         let _ = handle
                             .notification()
                             .builder()
-                            .title("Mouzi – click to open folder")
+                            .title("MouziFlow – click to open folder")
                             .body(body)
                             .extra("destFolder", last_dest_folder)
                             .show();
