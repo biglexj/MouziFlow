@@ -1,1 +1,1 @@
-﻿61fe5a8e47cd8d805527ee8c5908350d37455a31e7c17c04bd8a709b9a07f089  MouziFlow_0.2.1_x64-setup.exe
+﻿70653e5846bd9f8ed46f8fbadd9bd4cdc05a5fae5a0b5edd0fdcbd07b35d7d92  MouziFlow_0.2.2_x64-setup.exe

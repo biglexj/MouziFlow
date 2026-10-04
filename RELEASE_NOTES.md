@@ -18,6 +18,16 @@
 
 Registro histórico de cambios y versiones del proyecto.
 
+## [0.2.2] - 2026-10-04
+
+### Resumen
+Actualización de estabilidad y corrección de comportamiento en el arranque del sistema. Se garantiza el inicio completamente silencioso en segundo plano en la bandeja del sistema al encender o reiniciar el equipo, evitando aperturas no deseadas de la ventana principal. Se perfecciona el filtrado de eventos en instancias secundarias y se automatiza la limpieza y migración de claves de registro y accesos directos anteriores.
+
+### Detalles
+- **Arranque en segundo plano 100% silencioso**: Detección exhaustiva de banderas de inicio automático y segundo plano para mantener la ventana oculta y la aplicación residiendo exclusivamente en la bandeja del sistema durante el inicio de sesión de Windows.
+- **Filtrado inteligente en instancia única**: Bloqueo de señales de activación visual cuando se invocan instancias secundarias en modo automático o desatendido, asegurando que la interfaz solo se despliegue ante una apertura manual explícita por parte del usuario.
+- **Limpieza y migración automática del instalador**: El instalador y el ciclo de vida de la aplicación ahora eliminan automáticamente claves de inicio residuales, carpetas obsoletas y accesos directos anteriores para evitar colisiones entre versiones.
+
 ## [0.2.1] - 2026-10-03
 
 ### Resumen

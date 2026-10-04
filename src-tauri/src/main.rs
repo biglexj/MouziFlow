@@ -35,11 +35,22 @@ fn main() {
             let _hmutex = CreateMutexW(std::ptr::null(), 0, mutex_name.as_ptr());
             if GetLastError() == ERROR_ALREADY_EXISTS {
                 // Another instance is already running!
-                // Signal the primary instance's event to wake it up and show the UI
-                let hevent = OpenEventW(EVENT_MODIFY_STATE, 0, event_name.as_ptr());
-                if hevent != std::ptr::null_mut() {
-                    SetEvent(hevent);
-                    windows_sys::Win32::Foundation::CloseHandle(hevent);
+                // Only signal to wake up the UI if this secondary process was launched manually
+                let is_autostart = std::env::args().any(|arg| {
+                    let s = arg.trim_matches('"').trim_matches('\'').trim().to_lowercase();
+                    s == "--autostart" || s == "-autostart" || s == "/autostart"
+                        || s == "--minimized" || s == "-minimized" || s == "/minimized"
+                        || s == "--hidden" || s == "-hidden" || s == "/hidden"
+                        || s == "--silent" || s == "-silent" || s == "/silent"
+                        || s == "--background" || s == "-background" || s == "/background"
+                });
+
+                if !is_autostart {
+                    let hevent = OpenEventW(EVENT_MODIFY_STATE, 0, event_name.as_ptr());
+                    if hevent != std::ptr::null_mut() {
+                        SetEvent(hevent);
+                        windows_sys::Win32::Foundation::CloseHandle(hevent);
+                    }
                 }
                 // Terminate this secondary process immediately with 0 delay and no duplicate process
                 std::process::exit(0);

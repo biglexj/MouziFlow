@@ -56,12 +56,12 @@ A diferencia de la versión base, MouziFlow introduce las siguientes mejoras:
 
 | Archivo | Plataforma | Tipo | Enlace |
 | :--- | :--- | :--- | :--- |
-| **`MouziFlow_0.2.1_x64-setup.exe`** | Windows 10 / 11 (x64) | Instalador oficial | [Descargar de GitHub Releases](https://github.com/biglexj/MouziFlow/releases/download/v0.2.1/MouziFlow_0.2.1_x64-setup.exe) |
+| **`MouziFlow_0.2.2_x64-setup.exe`** | Windows 10 / 11 (x64) | Instalador oficial | [Descargar de GitHub Releases](https://github.com/biglexj/MouziFlow/releases/download/v0.2.2/MouziFlow_0.2.2_x64-setup.exe) |
 | **Ficha en Aurora** | Web / Blog | Detalles y notas | [Ver en biglexj.com](https://www.biglexj.com/desarrollo) |
 
 **Sumas de integridad (SHA-256):**
 ```text
-61fe5a8e47cd8d805527ee8c5908350d37455a31e7c17c04bd8a709b9a07f089  MouziFlow_0.2.1_x64-setup.exe
+70653e5846bd9f8ed46f8fbadd9bd4cdc05a5fae5a0b5edd0fdcbd07b35d7d92  MouziFlow_0.2.2_x64-setup.exe
 ```
 
 > ℹ️ **Requisitos en Windows:** Windows 10 (1809+) o Windows 11. Requiere el runtime WebView2 de Microsoft Edge (preinstalado en casi todas las versiones modernas de Windows).

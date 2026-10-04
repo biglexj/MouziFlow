@@ -1,15 +1,15 @@
-# MouziFlow v0.2.1 — Consolidación integral de identidad visual y branding unificado
+# MouziFlow v0.2.2 — Arranque silencioso en segundo plano y optimización de inicio
 
-Nueva versión de mantenimiento y branding: MouziFlow consolida su identidad oficial en todo el ecosistema de la aplicación, unificando los textos de la bandeja del sistema, títulos de ventana, notificaciones nativas, paquetes de idioma y artefactos del instalador.
+Actualización de estabilidad y comportamiento del sistema: MouziFlow perfecciona su arranque con el sistema operativo para operar de forma 100% silenciosa en segundo plano dentro de la bandeja del sistema, evitando aperturas involuntarias de la ventana principal al encender o reiniciar el equipo.
 
 ---
 
 ### Novedades destacadas
 
-- **Branding unificado en la bandeja del sistema:** Se actualizaron los tooltips de estado, archivos pendientes y menús contextuales en la bandeja del sistema para reflejar MouziFlow en los 10 idiomas oficiales soportados.
-- **Identidad en interfaz y diálogos:** Título de ventana principal, encabezado de ajustes, diálogo Acerca de y notificaciones Toast alineados con la identidad y enlaces oficiales de MouziFlow.
-- **Empaquetado oficial e instalador NSIS:** Generación nativa del instalador `MouziFlow_0.2.1_x64-setup.exe` con gestión previa de procesos en ejecución.
-- **Internacionalización completa:** Armonización de las cadenas de marca en todos los archivos de traducción (español, inglés, alemán, francés, italiano, japonés, polaco, ruso, ucraniano y vietnamita).
+- **Arranque en segundo plano 100% silencioso:** Detección integral y filtrado de parámetros de inicio automático para garantizar que la ventana se mantenga oculta y la aplicación se aloje directamente en la bandeja del sistema.
+- **Filtrado inteligente en instancia única:** Bloqueo de señales de activación visual cuando se lanzan instancias secundarias automáticas, asegurando que la interfaz se muestre únicamente tras una apertura manual por parte del usuario.
+- **Limpieza y migración automática en el instalador:** Eliminación transparente de claves de registro obsoletas, accesos directos anteriores y residuos de versiones previas.
+- **Empaquetado oficial NSIS:** Distribución oficial y verificada mediante el instalador `MouziFlow_0.2.2_x64-setup.exe`.
 
 ---
 

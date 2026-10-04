@@ -37,12 +37,36 @@ pub fn request_show_popup() {
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
+fn is_silent_or_autostart(arg: &str) -> bool {
+    let s = arg.trim_matches('"').trim_matches('\'').trim().to_lowercase();
+    s == "--autostart"
+        || s == "-autostart"
+        || s == "/autostart"
+        || s == "--minimized"
+        || s == "-minimized"
+        || s == "/minimized"
+        || s == "--hidden"
+        || s == "-hidden"
+        || s == "/hidden"
+        || s == "--silent"
+        || s == "-silent"
+        || s == "/silent"
+        || s == "--background"
+        || s == "-background"
+        || s == "/background"
+}
+
 pub fn run() {
     let ignored_files = Arc::new(Mutex::new(HashMap::new()));
     let pending_open_folder: Arc<Mutex<Option<String>>> = Arc::new(Mutex::new(None));
     tauri::Builder::default()
         // Register single-instance first to intercept secondary instances immediately
-        .plugin(tauri_plugin_single_instance::init(|app, _args, _cwd| {
+        .plugin(tauri_plugin_single_instance::init(|app, args, _cwd| {
+            let is_silent = args.iter().any(|arg| is_silent_or_autostart(arg));
+            if is_silent {
+                return;
+            }
+
             // When Windows activates the app (e.g. user clicked a notification),
             // open any pending folder first, then show the popup.
             if let Some(state) = app.try_state::<AppState>() {
@@ -160,14 +184,26 @@ pub fn run() {
                 false
             };
 
+            // Clean up legacy "Mouzi" autostart entry if present in Windows Registry
+            #[cfg(target_os = "windows")]
+            {
+                use std::os::windows::process::CommandExt;
+                const CREATE_NO_WINDOW: u32 = 0x08000000;
+                let _ = std::process::Command::new("reg")
+                    .args(["delete", "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", "/v", "Mouzi", "/f"])
+                    .creation_flags(CREATE_NO_WINDOW)
+                    .output();
+            }
+
             // Setup system tray
             let tray_lang = db::get_settings()
                 .map(|s| s.language)
                 .unwrap_or_else(|_| "es".to_string());
             tray::setup_tray(&app_handle, &tray_lang)?;
 
-            // Show the popup on manual launch so the user sees the interface immediately
-            let is_autostart = std::env::args().any(|arg| arg == "--autostart");
+            // Show the popup on manual launch so the user sees the interface immediately.
+            // On system startup or background launch, keep the application hidden in the tray.
+            let is_autostart = std::env::args().any(|arg| is_silent_or_autostart(&arg));
             if !is_autostart {
                 tray::show_popup_window(&app_handle);
             }
