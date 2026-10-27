@@ -1,3 +1,20 @@
+; ============================================================================
+; LEGACY - hooks NSIS de Tauri v2 (retirados)
+; ----------------------------------------------------------------------------
+; El instalador oficial de Windows ya no lo genera Tauri: ahora se compila con
+; Inno Setup 6 desde packaging\windows\setup.iss. Este archivo se conserva
+; unicamente como referencia historica de la equivalencia NSIS -> Inno.
+;
+; Traduccion a Inno Setup (packaging\windows\setup.iss, seccion [Code]):
+;   taskkill /IM MouziFlow.exe /T   -> StopRunningApp
+;   taskkill /IM mouzi.exe /T      -> StopRunningApp
+;   taskkill /F /IM *.exe /T       -> StopRunningApp
+;   DeleteRegValue HKCU "...\Run" "Mouzi" -> RemoveLegacyArtifacts
+;   Delete "$DESKTOP\Mouzi.lnk"    -> RemoveLegacyArtifacts
+;   Delete "$SMPROGRAMS\Mouzi.lnk" -> RemoveLegacyArtifacts
+;   RMDir /r "$LOCALAPPDATA\Mouzi" -> RemoveLegacyArtifacts
+; ============================================================================
+
 !macro NSIS_HOOK_PREINSTALL
   ; Attempt to close a running MouziFlow or legacy Mouzi instance gracefully before installing.
   ; First try a soft terminate, wait a moment, then force-kill if still running.

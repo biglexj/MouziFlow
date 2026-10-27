@@ -129,27 +129,9 @@ pub fn run() {
                 let _ = db::migrate_rules_to_relative();
             }
 
-            // Set close prevention handler and restore position on popup window
+            // Set close prevention handler and center popup window
             if let Some(window) = app.get_webview_window("popup") {
-                let saved_pos = db::get_window_position().unwrap_or(None);
-                if let Some((x, y)) = saved_pos {
-                    let _ = window.set_position(tauri::PhysicalPosition::new(x, y));
-                } else {
-                    #[cfg(target_os = "windows")]
-                    if let Ok(Some(monitor)) = app.primary_monitor() {
-                        let size = monitor.size();
-                        let pos = monitor.position();
-                        let scale = monitor.scale_factor();
-                        let win_w = (420.0 * scale) as i32;
-                        let win_h = (620.0 * scale) as i32;
-                        let margin_x = (24.0 * scale) as i32;
-                        let margin_y = (64.0 * scale) as i32;
-                        let _ = window.set_position(tauri::PhysicalPosition::new(
-                            pos.x + size.width as i32 - win_w - margin_x,
-                            pos.y + size.height as i32 - win_h - margin_y,
-                        ));
-                    }
-                }
+                let _ = window.center();
                 let win_clone = window.clone();
                 window.on_window_event(move |event| {
                     match event {

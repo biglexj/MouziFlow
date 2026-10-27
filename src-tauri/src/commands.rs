@@ -170,10 +170,14 @@ pub fn undo_all_cmd(state: tauri::State<AppState>) -> Result<i32, String> {
 }
 
 /// Return the current app version and release date.
+///
+/// The version comes from the packaged metadata (tauri.conf.json / Cargo.toml),
+/// so it always matches the shipped binary. The release date must be kept in
+/// sync with the `## [x.y.z]` entry of RELEASE_NOTES.md for that version.
 #[tauri::command]
 pub fn get_version_cmd(app: AppHandle) -> Result<(String, String), String> {
     let version = app.package_info().version.to_string();
-    let release_date = "2026-08-06".to_string();
+    let release_date = "2026-10-22".to_string();
     Ok((version, release_date))
 }
 
@@ -307,10 +311,8 @@ pub fn close_popup(app: AppHandle) {
 #[tauri::command]
 pub fn close_settings(app: AppHandle) {
     if let Some(window) = app.get_webview_window("popup") {
-        let _ = window.set_size(tauri::LogicalSize::new(420.0, 620.0));
-        if let Ok(Some((x, y))) = crate::db::get_window_position() {
-            let _ = window.set_position(tauri::PhysicalPosition::new(x, y));
-        }
+        let _ = window.set_size(tauri::LogicalSize::new(500.0, 720.0));
+        let _ = window.center();
         let _ = app.emit("navigate-to-popup", ());
     }
 }
@@ -322,10 +324,8 @@ pub fn set_view_mode_cmd(app: AppHandle, mode: String) {
             let _ = window.set_size(tauri::LogicalSize::new(820.0, 600.0));
             let _ = window.center();
         } else {
-            let _ = window.set_size(tauri::LogicalSize::new(420.0, 620.0));
-            if let Ok(Some((x, y))) = crate::db::get_window_position() {
-                let _ = window.set_position(tauri::PhysicalPosition::new(x, y));
-            }
+            let _ = window.set_size(tauri::LogicalSize::new(500.0, 720.0));
+            let _ = window.center();
         }
     }
 }

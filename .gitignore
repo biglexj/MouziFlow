@@ -43,6 +43,11 @@ Thumbs.db
 *.msi
 *.msix
 
+# Inno Setup (packaging de Windows)
+packaging/windows/app/
+packaging/windows/Output/
+packaging/windows/Output-light/
+
 # Scratch / temp files
 scratch_*
 

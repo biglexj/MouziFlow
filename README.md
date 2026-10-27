@@ -45,8 +45,9 @@ A diferencia de la versión base, MouziFlow introduce las siguientes mejoras:
   - Socket de instancia única separado (`cc.mouzi.dev`), base de datos aislada (`mouzi-dev`) y sufijo `[DEV]` en bandeja para programar sin interferir con la app instalada.
 - ⚡ **Instancia Única Optimizada (Win32)**:
   - Detección inmediata de procesos duplicados mediante Mutex y Eventos Win32 nativos que traen la ventana existente al frente al instante.
-- 📦 **Empaquetado Oficial Unificado con Icono Embebido**:
-  - Instalador NSIS con el icono canónico de MouziFlow integrado en el binario del instalador y desinstalador.
+- 📦 **Empaquetado Oficial con Inno Setup 6**:
+  - Instalador de Windows propio, compilado con Inno Setup 6, con el icono canónico de MouziFlow integrado y la identidad visual de la aplicación.
+  - Instalación por usuario, sin elevación de privilegios, y actualización en el mismo directorio.
 
 ---
 
@@ -56,12 +57,12 @@ A diferencia de la versión base, MouziFlow introduce las siguientes mejoras:
 
 | Archivo | Plataforma | Tipo | Enlace |
 | :--- | :--- | :--- | :--- |
-| **`MouziFlow_0.2.2_x64-setup.exe`** | Windows 10 / 11 (x64) | Instalador oficial | [Descargar de GitHub Releases](https://github.com/biglexj/MouziFlow/releases/download/v0.2.2/MouziFlow_0.2.2_x64-setup.exe) |
+| **`MouziFlow_0.2.3-setup.exe`** | Windows 10 / 11 (x64) | Instalador oficial (Inno Setup 6) | [Descargar de GitHub Releases](https://github.com/biglexj/MouziFlow/releases/download/v0.2.3/MouziFlow_0.2.3-setup.exe) |
 | **Ficha en Aurora** | Web / Blog | Detalles y notas | [Ver en biglexj.com](https://www.biglexj.com/desarrollo) |
 
 **Sumas de integridad (SHA-256):**
 ```text
-70653e5846bd9f8ed46f8fbadd9bd4cdc05a5fae5a0b5edd0fdcbd07b35d7d92  MouziFlow_0.2.2_x64-setup.exe
+11ac0817bd331c00f11d15deacfad0543ca1e6237ad56f533092de7dea5f0cb7  MouziFlow_0.2.3-setup.exe
 ```
 
 > ℹ️ **Requisitos en Windows:** Windows 10 (1809+) o Windows 11. Requiere el runtime WebView2 de Microsoft Edge (preinstalado en casi todas las versiones modernas de Windows).
@@ -137,10 +138,17 @@ bun run tauri:dev
 
 ### Compilación para Producción
 
+En Windows el instalador oficial se compila con **Inno Setup 6** (no con el
+empaquetador NSIS de Tauri). El comando oficial compila frontend y backend,
+genera el instalador y escribe las sumas SHA-256 en `release/`:
+
 ```bash
-# Compilar frontend y backend, empaquetar NSIS y generar sumas SHA-256 en release/
-bun run tauri:build
+# Modo local: no crea commits, tags ni publica nada en GitHub
+npm run release
 ```
+
+Requiere Inno Setup 6.6+ en el equipo (el script localiza `ISCC.exe` en
+`Scripts\tools\InnoSetup` o en el `PATH`).
 
 Los artefactos se depositan en el directorio [`release/`](release/).
 

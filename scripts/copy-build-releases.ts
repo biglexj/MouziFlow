@@ -6,6 +6,20 @@ const rootDir = process.cwd();
 const bundleDir = join(rootDir, "src-tauri", "target", "release", "bundle");
 const releaseDir = join(rootDir, "release");
 
+// En Windows el instalador oficial ya no lo genera Tauri: se compila con Inno
+// Setup 6 desde packaging\windows\setup.iss y lo publica
+// scripts\packaging\Build-Installer.ps1, que escribe su propio
+// release\SHA256SUMS.txt. Este script solo sirve para los bundles de Tauri en
+// Linux y macOS. En Windows copiaría un instalador NSIS residual y sobrescribiría
+// el fichero de sumas oficial con un conjunto incompleto.
+if (process.platform === "win32") {
+  console.log(
+    "ℹ️ Windows: la copia de bundles de Tauri se omite. El instalador oficial lo genera " +
+      "scripts\\packaging\\Build-Installer.ps1 (Inno Setup 6).",
+  );
+  process.exit(0);
+}
+
 // Leer la versión actual desde package.json
 const packageJson = JSON.parse(readFileSync(join(rootDir, "package.json"), "utf-8"));
 const currentVersion = packageJson.version;

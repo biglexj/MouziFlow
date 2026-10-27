@@ -29,6 +29,12 @@ Plan de trabajo, objetivos de producto y hoja de ruta estratégica del proyecto.
 
 ## 🟢 Completado
 
+- [x] **v0.2.3** (2026-10-22)
+  - **Instalador oficial de Windows en Inno Setup 6 y actualización del empaquetado**:
+    - **Migración de NSIS (Tauri) a Inno Setup 6**: El instalador de Windows se compila desde `packaging/windows/setup.iss` con la plantilla visual propia de Biglex, en lugar del empaquetador NSIS que generaba Tauri v2.
+    - **Instalación por usuario y sin elevación**: La instalación se aplica en `AppData\Local\Programs\MouziFlow` y no requiere permisos de administrador; las actualizaciones se instalan en el mismo directorio.
+    - **Guía de migración documentada**: `packaging/windows/MIGRATION.md` explica cómo desinstalar el instalador NSIS previo y qué restos de la app heredada "Mouzi" se limpian.
+    - **Manifiestos de winget preparados**: Manifiestos winget-pkgs para la 0.2.3 en `packaging/winget/manifests/`, pendientes de publicación.
 - [x] **v0.2.0** (2026-09-11)
   - **Rediseño Integral de UI, Menús Desplegables Dark Mode, Arrastre Fluido de Ventana y Empaquetado Oficial**:
     - **Reemplazo del 100% de Selectores Nativos por `CustomSelect`**:

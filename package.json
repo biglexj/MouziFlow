@@ -1,7 +1,7 @@
 {
   "name": "mouziflow",
   "private": true,
-  "version": "0.2.2",
+  "version": "0.2.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -25,6 +25,8 @@
     "tauri:dev": "bun run icons:generate && tauri dev --config src-tauri/tauri.dev.conf.json",
     "tauri:build": "bun run icons:generate && tauri build",
     "tauri:build:debug": "bun run icons:generate && tauri build --debug",
+    "build:installer": "powershell -ExecutionPolicy Bypass -File ./scripts/packaging/Build-Installer.ps1",
+    "build:installer:light": "powershell -ExecutionPolicy Bypass -File ./scripts/packaging/Build-Installer.ps1 -LightTheme",
     "posttauri:build": "bun scripts/copy-build-releases.ts",
     "release": "powershell -ExecutionPolicy Bypass -File ./scripts/release/build-release.ps1 -LocalOnly",
     "release:local": "powershell -ExecutionPolicy Bypass -File ./scripts/release/build-release.ps1 -LocalOnly",

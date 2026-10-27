@@ -1,15 +1,22 @@
-# MouziFlow v0.2.2 — Arranque silencioso en segundo plano y optimización de inicio
+# 📦 MouziFlow v0.2.3 — Instalador de Windows modernizado (Inno Setup)
 
-Actualización de estabilidad y comportamiento del sistema: MouziFlow perfecciona su arranque con el sistema operativo para operar de forma 100% silenciosa en segundo plano dentro de la bandeja del sistema, evitando aperturas involuntarias de la ventana principal al encender o reiniciar el equipo.
+El instalador oficial de Windows se reconstruye sobre una base propia con Inno Setup 6, la herramienta de empaquetado que sustituye al empaquetador NSIS que generaba Tauri. La instalación se vuelve más clara, coherente con la identidad visual de la aplicación y sin privilegios de administrador.
 
 ---
 
 ### Novedades destacadas
 
-- **Arranque en segundo plano 100% silencioso:** Detección integral y filtrado de parámetros de inicio automático para garantizar que la ventana se mantenga oculta y la aplicación se aloje directamente en la bandeja del sistema.
-- **Filtrado inteligente en instancia única:** Bloqueo de señales de activación visual cuando se lanzan instancias secundarias automáticas, asegurando que la interfaz se muestre únicamente tras una apertura manual por parte del usuario.
-- **Limpieza y migración automática en el instalador:** Eliminación transparente de claves de registro obsoletas, accesos directos anteriores y residuos de versiones previas.
-- **Empaquetado oficial NSIS:** Distribución oficial y verificada mediante el instalador `MouziFlow_0.2.2_x64-setup.exe`.
+- **Instalador de Windows modernizado (Inno Setup):** Pantalla única de entrada (presentación, ruta editable y botón principal), progreso y éxito nativos, tema claro/oscuro automático según Windows, esquinas nativas de Windows 11 e ícono centrado.
+- **Instalación por usuario y actualización en sitio:** Instalación sin elevación de privilegios y aplicada en el mismo directorio, sin instalar en paralelo.
+- **Migración documentada:** La guía de migración explica cómo desinstalar el instalador NSIS anterior (que instalaba en `AppData\Local\MouziFlow` con `uninstall.exe`), la nueva ubicación de instalación (`AppData\Local\Programs\MouziFlow` con `unins000.exe`) y la conservación de la limpieza de restos de la app heredada "Mouzi".
+- **Empaquetado oficial Inno Setup:** Distribución oficial y verificada mediante el instalador `MouziFlow_0.2.3-setup.exe`.
+- **Panel principal más grande y centrado:** La ventana flotante pasa a 500×720 px y se abre centrada en la pantalla, en lugar de restaurar la última posición guardada.
+
+---
+
+### Descarga
+
+https://github.com/biglexj/MouziFlow/releases/download/v0.2.3/MouziFlow_0.2.3-setup.exe
 
 ---
 

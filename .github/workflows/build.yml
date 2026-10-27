@@ -246,12 +246,20 @@ jobs:
           path: release
           merge-multiple: true
 
-      - name: Create GitHub release
+      - name: Publish release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create "$GITHUB_REF_NAME" release/* \
-            --repo "$GITHUB_REPOSITORY" \
-            --title "Mouzi $GITHUB_REF_NAME" \
-            --generate-notes \
-            --verify-tag
+          # El release oficial de Windows lo publica scripts/release/build-release.ps1
+          # (instalador de Inno Setup + SHA256SUMS.txt), que es el unico publicador
+          # autorizado. Este workflow valida y firma los artefactos, pero no crea ni
+          # modifica el release: si lo hiciera, competiria con el script oficial por
+          # el mismo tag y el release podria quedar sin el instalador Inno Setup.
+          if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "El release $GITHUB_REF_NAME ya existe: se deja intacto."
+            echo "Artefactos de CI en el run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          else
+            echo "El release $GITHUB_REF_NAME todavia no existe."
+            echo "Debe crearlo scripts/release/build-release.ps1 con el instalador de Inno Setup."
+            echo "Artefactos de CI en el run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          fi

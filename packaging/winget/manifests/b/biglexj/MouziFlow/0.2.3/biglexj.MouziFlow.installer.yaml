@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.10.0.schema.json
+
+PackageIdentifier: biglexj.MouziFlow
+PackageVersion: 0.2.3
+InstallerType: inno
+Scope: user
+InstallModes:
+  - interactive
+  - silent
+  - silentWithProgress
+UpgradeBehavior: install
+InstallerSwitches:
+  Silent: /VERYSILENT /SUPPRESSMSGBOXES /NORESTART
+  SilentWithProgress: /SILENT /SUPPRESSMSGBOXES /NORESTART
+ReleaseDate: 2026-10-22
+Installers:
+  - Architecture: x64
+    InstallerUrl: https://github.com/biglexj/MouziFlow/releases/download/v0.2.3/MouziFlow_0.2.3-setup.exe
+    InstallerSha256: 11AC0817BD331C00F11D15DEACFAD0543CA1E6237AD56F533092DE7DEA5F0CB7
+ManifestType: installer
+ManifestVersion: 1.10.0

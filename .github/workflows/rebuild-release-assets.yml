@@ -14,7 +14,11 @@ jobs:
           cache: npm
       - uses: dtolnay/rust-toolchain@stable
       - run: npm ci
-      - run: npm run tauri build
+      # En Windows el empaquetado de Tauri esta desactivado por
+      # src-tauri/tauri.windows.conf.json (bundle.active=false), porque el
+      # instalador oficial se compila con Inno Setup. Para reconstruir aqui los
+      # bundles NSIS/MSI hay que pedirlos explicitamente con --bundles.
+      - run: npm run tauri -- bundle --bundles nsis,msi --ci
       - name: Prepare portable executable
         shell: pwsh
         run: |

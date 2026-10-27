@@ -37,22 +37,33 @@ Write-Host "  MouziFlow — Release v$Version" -ForegroundColor Magenta
 Write-Host "══════════════════════════════════════════" -ForegroundColor Magenta
 Write-Host ""
 
-# 2. Compilar Aplicación (Tauri v2 + NSIS)
+# 2. Compilar Aplicación (Tauri v2 + Inno Setup en Windows)
 if (-not $SkipBuild) {
-    Write-Host "[1/4] Compilando instalador de MouziFlow (Tauri v2)..." -ForegroundColor Yellow
-    Push-Location $root
-    try {
-        if (Get-Command bun -ErrorAction SilentlyContinue) {
-            bun run tauri build
-            if ($LASTEXITCODE -ne 0) { throw "La compilación de Tauri falló con código $LASTEXITCODE" }
-            bun scripts/copy-build-releases.ts
-        } else {
-            npm run tauri build
-            if ($LASTEXITCODE -ne 0) { throw "La compilación de Tauri falló con código $LASTEXITCODE" }
-            node scripts/copy-build-releases.ts
+    if ($env:OS -eq "Windows_NT") {
+        Write-Host "[1/4] Compilando instalador de MouziFlow (Tauri v2 + Inno Setup)..." -ForegroundColor Yellow
+        Push-Location $root
+        try {
+            & (Join-Path $root "scripts\packaging\Build-Installer.ps1") -Version $Version
+            if ($LASTEXITCODE -ne 0) { throw "El empaquetado con Inno Setup falló con código $LASTEXITCODE" }
+        } finally {
+            Pop-Location
         }
-    } finally {
-        Pop-Location
+    } else {
+        Write-Host "[1/4] Compilando instalador de MouziFlow (Tauri v2)..." -ForegroundColor Yellow
+        Push-Location $root
+        try {
+            if (Get-Command bun -ErrorAction SilentlyContinue) {
+                bun run tauri build
+                if ($LASTEXITCODE -ne 0) { throw "La compilación de Tauri falló con código $LASTEXITCODE" }
+                bun scripts/copy-build-releases.ts
+            } else {
+                npm run tauri build
+                if ($LASTEXITCODE -ne 0) { throw "La compilación de Tauri falló con código $LASTEXITCODE" }
+                node scripts/copy-build-releases.ts
+            }
+        } finally {
+            Pop-Location
+        }
     }
 } else {
     Write-Host "[1/4] Compilación omitida (-SkipBuild)..." -ForegroundColor DarkGray
@@ -62,7 +73,7 @@ if (-not (Test-Path $releaseDir)) {
     New-Item -ItemType Directory -Force -Path $releaseDir | Out-Null
 }
 
-$installerTarget = Join-Path $releaseDir "MouziFlow_${Version}_x64-setup.exe"
+$installerTarget = Join-Path $releaseDir "MouziFlow_${Version}-setup.exe"
 if (-not (Test-Path $installerTarget)) {
     # Intentar buscar en bundle nativo si no se copió
     $bundleSource = Join-Path $root "src-tauri\target\release\bundle\nsis\MouziFlow_${Version}_x64-setup.exe"
@@ -70,7 +81,7 @@ if (-not (Test-Path $installerTarget)) {
         Copy-Item $bundleSource $installerTarget -Force
     } else {
         # Fallback a nombre anterior si existiera
-        $legacyInstaller = Join-Path $releaseDir "Mouzi_${Version}_x64-setup.exe"
+        $legacyInstaller = Join-Path $releaseDir "Mouzi_${Version}-setup.exe"
         if (Test-Path $legacyInstaller) {
             $installerTarget = $legacyInstaller
         } else {
@@ -81,7 +92,7 @@ if (-not (Test-Path $installerTarget)) {
 
 # Generar o verificar SHA256SUMS.txt
 $hashFile = Join-Path $releaseDir "SHA256SUMS.txt"
-$sha256 = (Get-FileHash -LiteralPath $installerTarget -Algorithm SHA256).Hash.ToLowerInvariant()
+$sha256 = (Get-Sha256Hex -LiteralPath $installerTarget).ToLowerInvariant()
 "{0}  {1}" -f $sha256, (Split-Path $installerTarget -Leaf) | Set-Content -LiteralPath $hashFile -Encoding UTF8
 
 Write-Host "Instalador empaquetado en: $installerTarget" -ForegroundColor Green

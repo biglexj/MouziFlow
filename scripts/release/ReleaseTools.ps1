@@ -51,6 +51,23 @@ function Assert-SemanticVersion {
     }
 }
 
+# SHA-256 con la API de .NET en lugar de Get-FileHash: ese cmdlet no esta
+# disponible en el modulo Microsoft.PowerShell.Utility cuando `powershell` se
+# invoca con -NoProfile, que es como lo llama el pipeline de release.
+function Get-Sha256Hex {
+    param([Parameter(Mandatory)][string]$LiteralPath)
+    $algo = [System.Security.Cryptography.SHA256]::Create()
+    $stream = $null
+    try {
+        $stream = [System.IO.File]::OpenRead($LiteralPath)
+        return ([BitConverter]::ToString($algo.ComputeHash($stream))).Replace('-', '')
+    }
+    finally {
+        if ($stream) { $stream.Dispose() }
+        $algo.Dispose()
+    }
+}
+
 function Assert-PublishPreflight {
     param(
         [Parameter(Mandatory)] [string]$Root,

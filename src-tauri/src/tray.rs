@@ -61,37 +61,11 @@ fn tray_lang(_app: &AppHandle) -> String {
 pub fn show_popup_window(app: &AppHandle) {
     let i18n = TrayI18n::new(&tray_lang(app));
     if let Some(window) = app.get_webview_window("popup") {
-        if let Ok(Some((x, y))) = db::get_window_position() {
-            let _ = window.set_position(tauri::PhysicalPosition::new(x, y));
-        }
+        let _ = window.center();
         let _ = window.unminimize();
         let _ = window.show();
         let _ = window.set_focus();
     } else {
-        let saved_pos = db::get_window_position().unwrap_or(None);
-
-        #[cfg(target_os = "windows")]
-        let (default_x, default_y) = if let Some((x, y)) = saved_pos {
-            (x, y)
-        } else if let Ok(Some(monitor)) = app.primary_monitor() {
-            let size = monitor.size();
-            let pos = monitor.position();
-            let scale = monitor.scale_factor();
-            let win_w = (420.0 * scale) as i32;
-            let win_h = (620.0 * scale) as i32;
-            let margin_x = (24.0 * scale) as i32;
-            let margin_y = (64.0 * scale) as i32;
-            (
-                pos.x + size.width as i32 - win_w - margin_x,
-                pos.y + size.height as i32 - win_h - margin_y,
-            )
-        } else {
-            (600, 250)
-        };
-
-        #[cfg(not(target_os = "windows"))]
-        let (default_x, default_y) = saved_pos.unwrap_or((100, 100));
-
         #[cfg(target_os = "macos")]
         let window = tauri::WebviewWindowBuilder::new(
             app,
@@ -99,8 +73,9 @@ pub fn show_popup_window(app: &AppHandle) {
             tauri::WebviewUrl::default(),
         )
         .title(i18n.get("popup_title"))
-        .inner_size(420.0, 620.0)
+        .inner_size(500.0, 720.0)
         .min_inner_size(360.0, 500.0)
+        .center()
         .resizable(true)
         .decorations(false)
         .always_on_top(true)
@@ -114,9 +89,9 @@ pub fn show_popup_window(app: &AppHandle) {
             tauri::WebviewUrl::default(),
         )
         .title(i18n.get("popup_title"))
-        .inner_size(420.0, 620.0)
+        .inner_size(500.0, 720.0)
         .min_inner_size(360.0, 500.0)
-        .position(default_x as f64, default_y as f64)
+        .center()
         .resizable(true)
         .decorations(false)
         .always_on_top(true)

@@ -18,6 +18,17 @@
 
 Registro histórico de cambios y versiones del proyecto.
 
+## [0.2.3] - 2026-10-22
+
+### Resumen
+El instalador oficial de Windows de MouziFlow se reconstruye sobre una base propia con Inno Setup 6, la herramienta de empaquetado que sustituye al empaquetador NSIS que generaba Tauri. El resultado es una instalación más clara, coherente con la identidad visual de la aplicación y sin privilegios de administrador.
+
+### Detalles
+- **Instalador de Windows modernizado (Inno Setup)**: El instalador EXE de Windows se genera ahora con la plantilla propia de Biglex en Inno Setup, con una pantalla única de entrada (presentación, ruta editable y botón principal), progreso y éxito nativos, tema claro/oscuro automático según Windows, esquinas nativas de Windows 11 e ícono centrado.
+- **Instalación por usuario y actualización en sitio**: La instalación es por usuario y sin elevación, no pide permisos de administrador, y la actualización se aplica en el mismo directorio de instalación sin instalar en paralelo.
+- **Coexistencia documentada con el instalador anterior**: El instalador anterior era el empaquetador NSIS de Tauri v2, que instalaba en `AppData\Local\MouziFlow` y dejaba un desinstalador `uninstall.exe`; el nuevo instala en `AppData\Local\Programs\MouziFlow` y usa `unins000.exe`. Como son instalaciones independientes, la guía de migración explica cómo desinstalar la versión NSIS antes de instalar esta, y los hooks de limpieza de restos de la app heredada "Mouzi" (clave de registro, accesos directos y carpeta local) se conservan en el instalador nuevo.
+- **Ventana principal más grande y centrada**: El panel flotante pasa a 500×720 px y se abre centrado en la pantalla cada vez que se invoca, en lugar de restaurar la última posición guardada o anclarse en la esquina inferior derecha.
+
 ## [0.2.2] - 2026-10-04
 
 ### Resumen
