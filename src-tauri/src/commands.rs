@@ -355,16 +355,25 @@ pub fn set_window_position_cmd(window: tauri::WebviewWindow, x: i32, y: i32) -> 
 
 #[tauri::command]
 pub fn enable_autostart_cmd(app: AppHandle) -> Result<(), String> {
+    if cfg!(debug_assertions) {
+        return Ok(());
+    }
     app.autolaunch().enable().map_err(|e| e.to_string())
 }
 
 #[tauri::command]
 pub fn disable_autostart_cmd(app: AppHandle) -> Result<(), String> {
+    if cfg!(debug_assertions) {
+        return Ok(());
+    }
     app.autolaunch().disable().map_err(|e| e.to_string())
 }
 
 #[tauri::command]
 pub fn is_autostart_enabled_cmd(app: AppHandle) -> Result<bool, String> {
+    if cfg!(debug_assertions) {
+        return Ok(false);
+    }
     app.autolaunch().is_enabled().map_err(|e| e.to_string())
 }
 

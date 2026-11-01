@@ -15,6 +15,7 @@ use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 use std::time::Instant;
 use tauri::Manager;
+#[cfg(not(debug_assertions))]
 use tauri_plugin_autostart::ManagerExt;
 use watcher::FolderWatcher;
 #[cfg(target_os = "macos")]
@@ -166,13 +167,17 @@ pub fn run() {
                 false
             };
 
-            // Clean up legacy "Mouzi" autostart entry if present in Windows Registry
+            // Clean up legacy "Mouzi" and "MouziFlow Dev" autostart entries if present in Windows Registry
             #[cfg(target_os = "windows")]
             {
                 use std::os::windows::process::CommandExt;
                 const CREATE_NO_WINDOW: u32 = 0x08000000;
                 let _ = std::process::Command::new("reg")
                     .args(["delete", "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", "/v", "Mouzi", "/f"])
+                    .creation_flags(CREATE_NO_WINDOW)
+                    .output();
+                let _ = std::process::Command::new("reg")
+                    .args(["delete", "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", "/v", "MouziFlow Dev", "/f"])
                     .creation_flags(CREATE_NO_WINDOW)
                     .output();
             }
@@ -190,7 +195,8 @@ pub fn run() {
                 tray::show_popup_window(&app_handle);
             }
 
-            // Sync autostart with user settings
+            // Sync autostart with user settings (only in release builds; do not register dev builds in Windows Startup)
+            #[cfg(not(debug_assertions))]
             if let Ok(settings) = db::get_settings() {
                 let auto_manager = app.autolaunch();
                 if settings.autostart {
