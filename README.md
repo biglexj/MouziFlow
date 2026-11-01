@@ -131,19 +131,29 @@ cd MouziFlow
 
 # Instalar dependencias
 bun install
+### Operación con Mise (Estándar Ecosistema)
 
-# Iniciar entorno de desarrollo (con aislamiento dev activado)
-bun run tauri:dev
-```
+MouziFlow implementa la interfaz universal de tareas mediante Mise:
 
-### Compilación para Producción
+| Tarea | Propósito |
+|---|---|
+| `mise dev` | Iniciar entorno de desarrollo (`tauri:dev` con aislamiento activado). |
+| `mise build` | Compilar frontend y binario de escritorio sin generar instaladores. |
+| `mise release` | Generar instalador oficial Inno Setup en `release/` sin publicar. |
+| `mise publish` | Publicar en GitHub Releases y sincronizar ficha en Aurora (`--plan` y `--check` sin escritura). |
 
-En Windows el instalador oficial se compila con **Inno Setup 6** (no con el
-empaquetador NSIS de Tauri). El comando oficial compila frontend y backend,
-genera el instalador y escribe las sumas SHA-256 en `release/`:
+Opciones de inspección y comprobación:
+- `--plan`: Muestra el comando y las operaciones planificadas sin ejecutar procesos ni modificar el sistema (`mise dev --plan`, `mise release --plan`, `mise publish --plan`).
+- `--check`: (para `publish`) Verifica el estado del repositorio, tags, notas y la presencia e integridad del instalador en `release/` sin publicar nada (`mise publish --check`).
+- Canal explícito `github`: `mise publish github` (omite la sincronización con la web de Aurora).
+
+### Flujos directos auxiliares
 
 ```bash
-# Modo local: no crea commits, tags ni publica nada en GitHub
+# Iniciar entorno de desarrollo directo
+bun run tauri:dev
+
+# Compilación y empaquetado local con scripts directos
 npm run release
 ```
 
