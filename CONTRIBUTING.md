@@ -129,7 +129,7 @@ Si deseas que tu proyecto o versión aparezca visible en la plataforma Aurora (`
 
 ## License
 
-By submitting a contribution, you agree that it may be distributed under the project's [MIT License](LICENSE).
+By submitting a contribution, you agree that it may be distributed under the project's [MIT License](LICENSE.md).
 
 Thank you for helping make MouziFlow better.
 
